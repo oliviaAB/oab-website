@@ -119,30 +119,25 @@ enableEmoji = true
     url = "/about/"
     weight = 1
   [[menu.header]]
-    name = "Blog"
-    title = "Blog"
-    url = "/blog/"
+    name = "Publications"
+    title = "Publications"
+    url = "/publication/"
     weight = 2
-  [[menu.header]]
-    name = "Projects"
-    title = "Project Portfolio"
-    url = "/project/"
-    weight = 3
   [[menu.header]]
     name = "Talks"
     title = "Talks"
     url = "/talk/"
+    weight = 3
+  [[menu.header]]
+    name = "Projects"
+    title = "Project Portfolio"
+    url = "/project/"
     weight = 4
   [[menu.header]]
-    name = "A collection"
-    title = "A collection"
-    url = "/collection/"
+    name = "Blog"
+    title = "Blog"
+    url = "/blog/"
     weight = 5
-  [[menu.header]]
-    name = "Elements"
-    title = "Element Page"
-    url = "/elements/"
-    weight = 6
 
   # Configure footer
   [[menu.footer]]
