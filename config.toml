@@ -28,9 +28,9 @@ enableEmoji = true
     style = "github"
 
 [params]
-  orgName = "Massey University"
-  orgLocal = "Palmerston North, New Zealand"
-  description = "My personal website."
+  orgName = "Olivia Angelin-Bonnet"
+  orgLocal = ""
+  description = "Personal website of Dr. Olivia Angelin-Bonnet"
   favicon = "/img/favicon.ico"
   logo = "/img/blogophonic-mark-dark.png"
   mainSections = ["blog", "project", "talk"]
@@ -48,7 +48,7 @@ enableEmoji = true
   # use a built-in color theme
   # one of: forest / grayscale / peach / plum /
   #         poppy / sky / violet / water
-  theme = "grayscale"
+  theme = "sky"
 
   # or, leave theme empty & make your own palette
   # see docs at https://hugo-apero.netlify.app/blog/color-themes/
@@ -95,7 +95,7 @@ enableEmoji = true
       url       = "https://twitter.com/AngelinBonnet"
   [[params.social]]
       icon      = "linkedin-in" # icon name without the 'fa-'
-      icon_pack = "ai"
+      icon_pack = "fab"
       url       = "https://www.linkedin.com/in/olivia-angelin-bonnet-294502109/"
   [[params.social]]
       icon      = "orcid" # icon name without the 'fa-'
@@ -155,11 +155,6 @@ enableEmoji = true
     title = "Contact form"
     url = "/contact/"
     weight = 2
-  [[menu.footer]]
-    name = "Contributors"
-    title = "Contributors"
-    url = "/contributors/"
-    weight = 3
 
 # see https://gohugo.io/about/hugo-and-gdpr/
 [privacy]

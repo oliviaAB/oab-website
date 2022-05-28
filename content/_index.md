@@ -1,20 +1,16 @@
 ---
-action_label: Read More &rarr;
+action_label: More about me &rarr;
 action_link: /about
 action_type: text
-description: Sit down, relax, and get to know Hugo Apéro. Built on top of Blogophonic,
-  we wanted to create a polished Hugo theme with the right features for a true personal
-  website. We set out to create a theme that is a pleasure to learn, and one that
-  helps others get to know you better. It is more than a blog, with flexible custom
-  layouts that help you introduce yourself online.
-image_left: true
+description: I’m Olivia, a Lecturer in Applied Statistics at Massey University (Palmerston North, New Zealand). I am passionate about Systems Biology, 'omics data analysis and integration, and the study of biological networks from a statistical and computational perspective. I love using R for data analysis, and to create (lots of) (gg)plots.
+image_left: false
 images:
-- img/revoir.jpg
+- img/Olivia_Angelin-Bonnet.jpg
 show_action_link: true
 show_social_links: true
-subtitle: A Hugo theme you'll want to hang out with
+subtitle: "Statistical Scientist, R user, loves to create plots"
 text_align_left: false
-title: Hugo Apéro
+title: "Olivia Angelin-Bonnet, PhD"
 type: home
 ---
 
