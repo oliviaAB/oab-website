@@ -1,17 +1,23 @@
 ---
 ## Configure page content in wide column
-title: "Why apéro?" # leave blank to exclude
+title: "Recent interests" # leave blank to exclude
 number_featured: 1 # pulling from mainSections in config.toml
 use_featured: false # if false, use most recent by date
 number_categories: 3 # set to zero to exclude
 show_intro: true
 intro: |
-  Apéro is a unique kind of casual get-together in French culture, when you gather with friends and get to know each other better over some apéritifs, snacks, and anything in between. A good apéro is one where you'd happily spend a few hours just hanging out.
+  Here are some of the things and resources I've been interested in lately:
   
-  I hope this theme helps you create your own virtual apéro. A place where you and your site's visitors enjoy spending time, and one that helps folks get to know you better. 
+  - The amazing [targets](https://books.ropensci.org/targets/) R package, to construct reproducible workflows in R.
+  
+  - [pkgdown](https://pkgdown.r-lib.org/) R package, to automatically build a website from your R package documentation.
+  
+  - [Alison Hill](https://www.apreshill.com/)'s content, especially about [building websites using bookdown](https://www.youtube.com/watch?v=yXFu_upDL2o).
+  
+  - The Wheel of Time series by Robert Jordan.
 show_outro: true
 outro: |
-  <i class="fas fa-glass-cheers pr2"></i>Sincere thanks to [Maëlle Salmon](https://masalmon.eu/) for her help naming this Hugo theme!
+  <i class="fas fa-book pr2"></i> <i class="fas fa-compass pr2"></i> <i class="fas fa-laptop pr2"></i>
 ---
 
 ** index doesn't contain a body, just front matter above.
