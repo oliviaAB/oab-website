@@ -24,7 +24,7 @@
     </figure>
     <div class="flex flex-column w-100 w-70-ns pl3-ns">
       <header class="w-100">
-        <h1 class="f4 mv1 lh-title"><a href="{{ .RelPermalink }}" class="db">{{ .Title | markdownify }}</a></h1>
+        <h1 class="f4 mv1 underline lh-title"><a href="{{ .RelPermalink }}" class="db">{{ .Title | markdownify }}</a></h1>
         {{ range first 1 (.GetTerms "series") }}
         <h2 class="f5"><i class="fas fa-stream fa-fw pr1"></i><small class="f5 ttu tracked">Series: </small><a class="link i dim" href="{{ $section.RelPermalink }}">{{ .LinkTitle }}</a></h2>
         {{ end }}
@@ -64,7 +64,7 @@
   {{ else }}
   <div class="measure-wide center mb4 mb5-l">
     <header>
-      <h1 class="f3 mt0 mb2 lh-title fw4"><a href="{{ .RelPermalink }}" class="db" style="text-decoration:none">{{ .Title | markdownify }}</a></h1>
+      <h1 class="f3 mt0 mb2 lh-title underline fw4"><a href="{{ .RelPermalink }}" class="db" style="text-decoration:none">{{ .Title | markdownify }}</a></h1>
       {{ range first 1 (.GetTerms "series") }}
       <h2 class="f5"><i class="fas fa-stream fa-fw pr1"></i><small class="f5 ttu tracked">Series: </small><a class="link i dim" href="{{ $section.RelPermalink }}">{{ .LinkTitle }}</a></h2>
       {{ end }}
