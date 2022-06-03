@@ -1,0 +1,50 @@
+---
+title: "The sismonr Package: Simulation of In Silico Multi-Omic Networks in R"
+author: "Olivia Angelin-Bonnet, Patrick J. Biggs, Matthieu Vignes"
+publication: "2018 IEEE International Conference on Bioinformatics and Biomedicine (BIBM)"
+publishdate: "2018-12-03"
+excerpt: "Poster presentation of the sismonr R package for simulation of gene regulatory networks with transcription and post-transcriptional regulation."
+tags:
+- R-package
+- conference-proceedings
+draft: false
+featured: true
+layout: single
+links:
+- icon: paperclip
+  icon_pack: fas
+  name: Publication
+  url: https://ieeexplore.ieee.org/abstract/document/8621131
+- icon: github
+  icon_pack: fab
+  name: GitHub repository
+  url: https://github.com/oliviaAB/sismonr
+- icon: book
+  icon_pack: fas
+  name: Documentation
+  url: https://oliviaab.github.io/sismonr/
+show_post_time: false
+show_publication: true
+---
+
+## Abstract
+
+Cellular regulatory networks can be deciphered from multi-omics data using network inference methods. To assess the performance of such methods, one can use simulated data. To be insightful, the simulations must mimic the complexity of biological systems, including post-transcriptional regulation and genetic variations. Here we present our new simulation R package, sismonr, capable of generating gene expression profiles for complex in silico regulatory systems.
+
+## Cite us
+
+> Angelin-Bonnet, O., Biggs, P. J., & Vignes, M. (2018). The sismonr Package: Simulation of In Silico Multi-Omic Networks in R. In *2018 IEEE International Conference on Bioinformatics and Biomedicine (BIBM)* (pp. 2729-2731). IEEE. https://doi.org/10.1109/BIBM.2018.8621131
+
+Or with bibtex:
+
+```
+@inproceedings{angelin2018sismonr,
+	title        = {The sismonr Package: Simulation of In Silico Multi-Omic Networks in R},
+	author       = {Angelin-Bonnet, Olivia and Biggs, Patrick J and Vignes, Matthieu},
+	year         = 2018,
+	booktitle    = {2018 IEEE International Conference on Bioinformatics and Biomedicine (BIBM)},
+	pages        = {2729--2731},
+	organization = {IEEE},
+	doi          = {10.1109/BIBM.2018.8621131}
+}
+```

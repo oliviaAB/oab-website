@@ -17,7 +17,7 @@ links:
 - icon: github
   icon_pack: fab
   name: GitHub repository
-  url: https://github.com/apreshill/bakeoff
+  url: https://github.com/oliviaAB/sismonr
 - icon: book
   icon_pack: fas
   name: Documentation
@@ -32,7 +32,7 @@ We present sismonr, an R package for an integral generation and simulation of in
 
 ## Cite us
 
-> Olivia Angelin-Bonnet, Patrick J Biggs, Samantha Baldwin, Susan Thomson, Matthieu Vignes, sismonr: simulation of in silico multi-omic networks with adjustable ploidy and post-transcriptional regulation in R, *Bioinformatics*, Volume 36, Issue 9, 1 May 2020, Pages 2938–2940, https://doi.org/10.1093/bioinformatics/btaa002
+> Angelin-Bonnet, O., Biggs, P. J., Baldwin, S., Thomson, S., & Vignes, M. (2020). sismonr: simulation of in silico multi-omic networks with adjustable ploidy and post-transcriptional regulation in R. *Bioinformatics*, 36(9), 2938-2940.
 
 Or with bibtex:
 

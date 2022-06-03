@@ -29,7 +29,8 @@ Modelling gene regulatory networks requires not only a thorough understanding of
 
 ## Cite us
 
-> Angelin-Bonnet O., Biggs P.J., Vignes M. (2019) Gene Regulatory Networks: A Primer in Biological Processes and Statistical Modelling. In: Sanguinetti G., Huynh-Thu V. (eds) Gene Regulatory Networks. Methods in Molecular Biology, vol 1883. Humana Press, New York, NY. https://doi.org/10.1007/978-1-4939-8882-2_15
+> Angelin-Bonnet, O., Biggs, P. J., & Vignes, M. (2019). Gene regulatory networks: a primer in biological processes and statistical modelling. In *Gene Regulatory Networks* (pp. 347-383). Humana Press, New York, NY.
+ https://doi.org/10.1007/978-1-4939-8882-2_15
 
 Or with bibtex:
 
