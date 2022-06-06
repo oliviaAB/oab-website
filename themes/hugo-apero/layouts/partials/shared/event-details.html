@@ -1,7 +1,15 @@
 <section class="event-details cf pt5-ns pt4">
+  {{ with .Params.author }}
+  <div class="first-column">
+    <h5 class="row-label">Author(s)</h5>
+  </div>
+  <div class="second-column">
+    <p class="row-details">{{ . }}</p>
+  </div>
+  {{ end }}
   {{ with .Params.excerpt }}
   <div class="first-column">
-    <h5 class="row-label">Abstract</h5>
+    <h5 class="row-label">Excerpt</h5>
   </div>
   <div class="second-column">
     <p class="row-details">{{ . }}</p>
@@ -14,12 +22,14 @@
   <div class="second-column">
     <p class="row-details">{{ partial "shared/date-range.html" . }}</p>
   </div>
+  {{ if .Params.show_post_time }}
   <div class="first-column">
     <h5 class="row-label">Time</h5>
   </div>
   <div class="second-column">
     <p class="row-details">{{ partial "shared/time-range.html" . }}</p>
   </div>
+  {{ end }}
   {{ end }}
   {{ with .Params.location }}
   <div class="first-column">
