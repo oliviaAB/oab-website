@@ -16,7 +16,7 @@ layout: single
 show_post_time: false
 
 links:
-- icon: book
+- icon: laptop
   icon_pack: fas
   name: Workshop material
   url: https://genomicsaotearoa.github.io/Gene_Regulatory_Networks_Simulation_Workshop/
