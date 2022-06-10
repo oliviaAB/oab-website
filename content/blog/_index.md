@@ -1,8 +1,8 @@
 ---
-title: A Blog That Works
+title: Blog
 description: "This is a fully featured blog that supports categories, \ntags, series,
   and pagination.\n"
-author: The R Markdown Team @RStudio
+author: Olivia Angelin-Bonnet
 layout: list-sidebar
 show_author_byline: true
 show_button_links: false
@@ -12,17 +12,18 @@ show_post_thumbnail: true
 thumbnail_left: true
 
 sidebar:
-  title: A Sidebar for Your Thoughts
+  title: "\"Le hasard ne favorise que les esprits préparés.\""
   author: The R Markdown Team @RStudio
-  description: "This is a fully featured blog that supports categories,\ntags, series,
-    and pagination. Even this sidebar offers \na ton of customizations.\n\nCheck out
-    the _index.md file in the /blog folder \nto edit this content. \n"
+  description: "*Quote that may or may not be attributed to Louis Pasteur,
+  who may have used these or similar words...*<br><br>
+  <font size='2'>Photo by [Aaron Burden](https://unsplash.com/@aaronburden?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)</font>"
+  show_author_byline: false
   show_sidebar_adunit: true
-  text_link_label: Subscribe via RSS
+  text_link_label: 
   text_link_url: /index.xml
 
 cascade:
-  author: The R Markdown Team @RStudio
+  author: Olivia Angelin-Bonnet
   show_author_byline: true
   show_comments: true
   show_post_date: true
