@@ -1,6 +1,6 @@
 ---
 title: University teaching
-subtitle: An R Package
+subtitle: Courses I've taught at Massey University
 excerpt: A summary of the courses I've taught at Massey University.
 author: Olivia Angelin-Bonnet
 date: "2020-08-01"

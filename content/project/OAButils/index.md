@@ -1,6 +1,6 @@
 ---
 title: OAButils
-subtitle: ""
+subtitle: An R package
 excerpt: An R package with some useful tools for my day-to-day data science work.
 author: Olivia Angelin-Bonnet
 date: "2022-05-11"
