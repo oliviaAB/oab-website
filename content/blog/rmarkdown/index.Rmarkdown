@@ -1,10 +1,10 @@
 ---
 title: "Web scrapping for potato pedigree"
 subtitle: ""
-excerpt: "A little project to reconstruct potato pedigree from the Potato Pedigree Database"
-date: 2020-06-10
+excerpt: "A little project to reconstruct and plot potato varieties' pedigree from the Potato Pedigree Database"
+date: 2022-06-10
 author: "Olivia Angelin-Bonnet"
-draft: true
+draft: false
 images:
 series:
 tags:
@@ -15,64 +15,88 @@ layout: single-sidebar
 ```{r setup, include = FALSE}
 library(rvest)
 library(xml2)
+library(visNetwork)
 library(tidyverse)
 ```
 
+<font size='2'>*Thumbnail image by [Lars Blankers](https://unsplash.com/@lmablankers?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/potatoes?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText).*</font>
 
-During the course of a project for work, I’ve had to plot the pedigree of several potatoes varieties. These can be found in the [Potato Pedigree Database](https://www.plantbreeding.wur.nl/PotatoPedigree/index.html) set up by [Wageningen university](https://www.wur.nl/). This database allows you to search for the parents or progeny of a specific variety, and can display pedigrees as a tree. There is an option to change the depth of the tree, i.e. the number of parental generations that are displayed.
+## Introduction 
+ 
+During the course of a project for work, I’ve had to plot the pedigree of several potato varieties. Information about the pedigree of commerical potato varieties can be found in the [Potato Pedigree Database](https://www.plantbreeding.wur.nl/PotatoPedigree/index.html) set up by [Wageningen University](https://www.wur.nl/). In this database, it is possible to search for the parents or progeny of a specific variety, and the pedigree of a particular variety is displayed as a tree. There is an option to change the depth of the tree, i.e. the number of parental generations that are displayed.
 
-For this project however, I wanted to extract and combine the pedigree from several varieties. In this blog post, I’ll walk through how I used web scrapping to extract and reconstruct pedigrees from this database. I’ll take the example of the [Red Rascal](https://www.plantbreeding.wur.nl/PotatoPedigree/pedigree_imagemap.php?id=15504) variety, as it offers a number of interesting challenges.
+For this project however, I wanted to extract and combine the pedigrees of several varieties. In this blog post, I’ll walk through how I used web scrapping to extract and reconstruct pedigrees from this database, and how I used the [visNetwork](https://datastorm-open.github.io/visNetwork/) package to create interactive pedigree plots. I’ll take the example of the [Red Rascal](https://www.plantbreeding.wur.nl/PotatoPedigree/pedigree_imagemap.php?id=15504) variety, as it offers a number of interesting challenges.
 
-## Extracting the pedigree information from the website into R
+## The short version - aka the actual code
+
+If you are in a hurry, or not interested in the how, here is the code I came up with. Note, it is far from perfect, but it is good enough for what I had to do.
+
+```{r all-the-code}
+<<get-pedigree-graph>>
+
+<<get-pedigree-edges>>
+
+<<get-pedigree-nodes>>
+
+<<plot-pedigree>>
+```
+
+For the following result:
+
+```{r complete-example}
+#| ref.label = "final-example"
+```
+
+## Extracting pedigree information from the website into R
 
 Unfortunately, the database does not offer any option to export the pedigree information into a table format. So I had to turn to web scrapping techniques to extract information from the website directly. There are a lot of great tutorials about web scrapping in R, so I won’t go into details; instead I’ll focus on the approach I've tried.
 
-### Results page layout
+### HTML source code of the pedigree webpage
 
-We'll work from the [pedigree of Red Rascal](https://www.plantbreeding.wur.nl/PotatoPedigree/pedigree_imagemap.php?id=15504). Using Google Chrome, you can view the source code for the page via right `click > View page source`. This is the essence of web scrapping: extracting information from the source code of a web page. The part that is interesting for this project is the pedigree map:
+We'll work on the [Red Rascal's pedigree](https://www.plantbreeding.wur.nl/PotatoPedigree/pedigree_imagemap.php?id=15504). Using Google Chrome, it is possible to view the source code for the page via right `click > View page source`. This is the essence of web scrapping: extracting information from the source code of a web page.
 
 <details>
-  <summary><em>Show the source code of the Red Rascal pedigree webpage</em></summary>
-```{html, class.source = 'foldable'}
+<summary><em>Show the source code of the Red Rascal pedigree webpage</em></summary>
+```
 
 <!DOCTYPE html>
-<html lang="nl">
+  <html lang="nl">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Potato Pedigree Database - RED RASCAL (1995) - Pedigree image map</title>
-    <meta property="og:locale" content="nl_NL" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Potato Pedigree Database - RED RASCAL (1995) - Pedigree image map" />
-    <meta property="og:description" content="Potato Pedigree Database, RED RASCAL (1995) - Pedigree image map" />
-    <link rel="stylesheet" media="all" href="/PotatoPedigree/layout/style.css" />
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Potato Pedigree Database - RED RASCAL (1995) - Pedigree image map</title>
+  <meta property="og:locale" content="nl_NL" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Potato Pedigree Database - RED RASCAL (1995) - Pedigree image map" />
+  <meta property="og:description" content="Potato Pedigree Database, RED RASCAL (1995) - Pedigree image map" />
+  <link rel="stylesheet" media="all" href="/PotatoPedigree/layout/style.css" />
   </head>
   <body>
-<div class="page">
-
+  <div class="page">
+  
   <header>
-    <div>
-        <a href="https://www.wur.nl/" title="Wageningen University &amp; Research"><img class="logo" src="/PotatoPedigree/layout/images/wur.png" alt="WUR logo"></a>  
-    </div>
-    <nav>
-      <ul>
-        <li><a href="/PotatoPedigree/">Home</a></li>
-      </ul>
-    </nav>
+  <div>
+  <a href="https://www.wur.nl/" title="Wageningen University &amp; Research"><img class="logo" src="/PotatoPedigree/layout/images/wur.png" alt="WUR logo"></a>  
+  </div>
+  <nav>
+  <ul>
+  <li><a href="/PotatoPedigree/">Home</a></li>
+  </ul>
+  </nav>
   </header>
   
   <h1>
-    <img src="/PotatoPedigree/layout/images/piepertje3.gif" alt="potato" width="53" height="40" border="0" align="right">
-    Potato Pedigree Database
-  </h1>
+  <img src="/PotatoPedigree/layout/images/piepertje3.gif" alt="potato" width="53" height="40" border="0" align="right">
+  Potato Pedigree Database
+</h1>
   <hr class="line2" color="#003366">                
-
   
-<font size="3" face="verdana"><b>pedigree image for 'RED RASCAL'</b> &nbsp;&nbsp;  (year: 1995)  [depth=5] </font>
-<br><br>
-<font size="2" face="verdana">&nbsp;change image tree depth: </font>
-<select name="depth" size="1" style="font-family: Arial; font-size: 8pt;" class="box" onchange="if(this.options[this.selectedIndex].value != 0) { self.location.href='pedigree_imagemap.php?id=15504&amp;showjaar=0&amp;depth='+this.options[this.selectedIndex].value }">
+  
+  <font size="3" face="verdana"><b>pedigree image for 'RED RASCAL'</b> &nbsp;&nbsp;  (year: 1995)  [depth=5] </font>
+  <br><br>
+  <font size="2" face="verdana">&nbsp;change image tree depth: </font>
+  <select name="depth" size="1" style="font-family: Arial; font-size: 8pt;" class="box" onchange="if(this.options[this.selectedIndex].value != 0) { self.location.href='pedigree_imagemap.php?id=15504&amp;showjaar=0&amp;depth='+this.options[this.selectedIndex].value }">
   <option value="2">2</option>
   <option value="3">3</option>
   <option value="4">4</option>
@@ -81,113 +105,113 @@ We'll work from the [pedigree of Red Rascal](https://www.plantbreeding.wur.nl/Po
   <option value="7">7</option>
   <option value="8">8</option>
   
-</select>
-&nbsp;&nbsp;&nbsp;
+  </select>
+  &nbsp;&nbsp;&nbsp;
 <font size="2" face="verdana">Show year of release (when known): </font>
-<select name="showyear" size="1" style="font-family: Arial; font-size: 8pt;" class="box" onchange="if(this.options[this.selectedIndex].value != 2) { self.location.href='pedigree_imagemap.php?id=15504&amp;depth=5&amp;showjaar='+this.options[this.selectedIndex].value }">
+  <select name="showyear" size="1" style="font-family: Arial; font-size: 8pt;" class="box" onchange="if(this.options[this.selectedIndex].value != 2) { self.location.href='pedigree_imagemap.php?id=15504&amp;depth=5&amp;showjaar='+this.options[this.selectedIndex].value }">
   <option value="0" selected="">No</option>
   <option value="1"> Yes</option>
-</select>
-<ul>
+  </select>
+  <ul>
   <li>
-    <font size="2" face="verdana" color="blue">Colored names </font>
-    <font size="2" face="verdana">indicate that there are more possibilities (several cultivars with the same name), 
-    <br>only the branch of the first cultivar that was found is shown</font>
+  <font size="2" face="verdana" color="blue">Colored names </font>
+  <font size="2" face="verdana">indicate that there are more possibilities (several cultivars with the same name), 
+<br>only the branch of the first cultivar that was found is shown</font>
   </li>
   <li>
-    <font size="2" face="verdana"><b>Clicking on a name</b> will open a popup window with new search results for that cultivar and a link to <i>europotato.org</i></font>
+  <font size="2" face="verdana"><b>Clicking on a name</b> will open a popup window with new search results for that cultivar and a link to <i>europotato.org</i></font>
   </li>
-</ul>
-
-<map name="pedigreemap">
-   <area title="RED RASCAL" shape="rect" coords="0,315,40,325" href="lookup.php?name=RED+RASCAL" alt="Array (1995)" target="popup">      
-   <area title="TEKAU" shape="rect" coords="100,155,140,165" href="lookup.php?name=TEKAU" alt="Array (1982)" target="popup">      
-   <area title="DESIREE" shape="rect" coords="100,475,140,485" href="lookup.php?name=DESIREE" alt="Array (1962)" target="popup">      
-   <area title="1584C(10)" shape="rect" coords="200,75,240,85" href="lookup.php?name=1584C%2810%29" alt="" target="popup">      
-   <area title="302.01" shape="rect" coords="200,235,240,245" href="lookup.php?name=302.01" alt="" target="popup">      
-   <area title="URGENTA" shape="rect" coords="200,395,240,405" href="lookup.php?name=URGENTA" alt="Array (1951)" target="popup">      
-   <area title="DEPESCHE" shape="rect" coords="200,555,240,565" href="lookup.php?name=DEPESCHE" alt="Array (1942)" target="popup">      
-   <area title="MAUD MEG" shape="rect" coords="300,35,340,45" href="lookup.php?name=MAUD+MEG" alt="Array (&lt;1921)" target="popup">      
-   <area title="1104C(2)" shape="rect" coords="300,115,340,125" href="lookup.php?name=1104C%282%29" alt="" target="popup">      
-   <area title="M 109-3" shape="rect" coords="300,195,340,205" href="lookup.php?name=M+109-3" alt="" target="popup">      
-   <area title="119-227" shape="rect" coords="300,275,340,285" href="lookup.php?name=119-227" alt="" target="popup">      
-   <area title="FURORE" shape="rect" coords="300,355,340,365" href="lookup.php?name=FURORE" alt="Array (1930)" target="popup">      
-   <area title="KATAHDIN" shape="rect" coords="300,435,340,445" href="lookup.php?name=KATAHDIN" alt="Array (1932)" target="popup">      
-   <area title="DUKE OF YORK" shape="rect" coords="300,515,340,525" href="lookup.php?name=DUKE+OF+YORK" alt="Array (1891)" target="popup">      
-   <area title="IMPOSANT" shape="rect" coords="300,595,340,605" href="lookup.php?name=IMPOSANT" alt="" target="popup">      
-   <area title="unknown" shape="rect" coords="400,15,440,25" href="lookup.php?name=unknown" alt="" target="popup">      
-   <area title="885(4)" shape="rect" coords="400,95,440,105" href="lookup.php?name=885%284%29" alt="" target="popup">      
-   <area title="DR. McINTOSH" shape="rect" coords="400,135,440,145" href="lookup.php?name=DR.+McINTOSH" alt="Array (1944)" target="popup">      
-   <area title="11-76" shape="rect" coords="400,255,440,265" href="lookup.php?name=11-76" alt="" target="popup">      
-   <area title="11-79" shape="rect" coords="400,295,440,305" href="lookup.php?name=11-79" alt="" target="popup">      
-   <area title="RODE STAR" shape="rect" coords="400,335,440,345" href="lookup.php?name=RODE+STAR" alt="Array (1908)" target="popup">      
-   <area title="ALPHA" shape="rect" coords="400,375,440,385" href="lookup.php?name=ALPHA" alt="Array (1874)" target="popup">      
-   <area title="USDA 40568" shape="rect" coords="400,415,440,425" href="lookup.php?name=USDA+40568" alt="" target="popup">      
-   <area title="USDA 24642" shape="rect" coords="400,455,440,465" href="lookup.php?name=USDA+24642" alt="" target="popup">      
-   <area title="EARLY PRIMROSE" shape="rect" coords="400,495,440,505" href="lookup.php?name=EARLY+PRIMROSE" alt="" target="popup">      
-   <area title="KING KIDNEY" shape="rect" coords="400,535,440,545" href="lookup.php?name=KING+KIDNEY" alt="" target="popup">      
-   <area title="INDUSTRIE" shape="rect" coords="400,575,440,585" href="lookup.php?name=INDUSTRIE" alt="Array (1900)" target="popup">      
-   <area title="PEPO" shape="rect" coords="400,615,440,625" href="lookup.php?name=PEPO" alt="" target="popup">      
-   <area title="735" shape="rect" coords="500,85,540,95" href="lookup.php?name=735" alt="" target="popup">      
-   <area title="GLADSTONE" shape="rect" coords="500,105,540,115" href="lookup.php?name=GLADSTONE" alt="" target="popup">      
-   <area title="HERALD" shape="rect" coords="500,125,540,135" href="lookup.php?name=HERALD" alt="" target="popup">      
-   <area title="phu" shape="rect" coords="500,145,540,155" href="lookup.php?name=phu" alt="" target="popup">      
-   <area title="USDA 41956" shape="rect" coords="500,245,540,255" href="lookup.php?name=USDA+41956" alt="" target="popup">      
-   <area title="2-402" shape="rect" coords="500,265,540,275" href="lookup.php?name=2-402" alt="" target="popup">      
-   <area title="USDA 41956" shape="rect" coords="500,285,540,295" href="lookup.php?name=USDA+41956" alt="" target="popup">      
-   <area title="2-402" shape="rect" coords="500,305,540,315" href="lookup.php?name=2-402" alt="" target="popup">      
-   <area title="PROFESSOR WOHLTMANN" shape="rect" coords="500,325,540,335" href="lookup.php?name=PROFESSOR+WOHLTMANN" alt="" target="popup">      
-   <area title="ERICA" shape="rect" coords="500,345,540,355" href="lookup.php?name=ERICA" alt="" target="popup">      
-   <area title="EARLY ROSE" shape="rect" coords="500,365,540,375" href="lookup.php?name=EARLY+ROSE" alt="" target="popup">      
-   <area title="SEBEC" shape="rect" coords="500,385,540,395" href="lookup.php?name=SEBEC" alt="" target="popup">      
-   <area title="BUSOLA" shape="rect" coords="500,405,540,415" href="lookup.php?name=BUSOLA" alt="" target="popup">      
-   <area title="RURAL NEW YORKER NO. 2" shape="rect" coords="500,425,540,435" href="lookup.php?name=RURAL+NEW+YORKER+NO.+2" alt="" target="popup">      
-   <area title="WHITE ROSE" shape="rect" coords="500,445,540,455" href="lookup.php?name=WHITE+ROSE" alt="" target="popup">      
-   <area title="SUTTON&#039;S FLOURBALL" shape="rect" coords="500,465,540,475" href="lookup.php?name=SUTTON%27S+FLOURBALL" alt="" target="popup">      
-   <area title="ZWICKAUER FRUHE" shape="rect" coords="500,565,540,575" href="lookup.php?name=ZWICKAUER+FRUHE" alt="" target="popup">      
-   <area title="SIMSON" shape="rect" coords="500,585,540,595" href="lookup.php?name=SIMSON" alt="" target="popup">      
-   <area title="TASSO" shape="rect" coords="500,605,540,615" href="lookup.php?name=TASSO" alt="" target="popup">      
-   <area title="63/85" shape="rect" coords="500,625,540,635" href="lookup.php?name=63%2F85" alt="" target="popup">      
-</map>
-
-<img src="pedigree_image.php?id=15504&amp;depth=5&amp;showjaar=0" usemap="#pedigreemap" border="0">
-
-<br><br>
-
-<font size="1" face="verdana">note: tree images are dimensioned to accomodate full info at the deepest level (the more levels, the taller the picture), 
+  </ul>
+  
+  <map name="pedigreemap">
+  <area title="RED RASCAL" shape="rect" coords="0,315,40,325" href="lookup.php?name=RED+RASCAL" alt="Array (1995)" target="popup">      
+  <area title="TEKAU" shape="rect" coords="100,155,140,165" href="lookup.php?name=TEKAU" alt="Array (1982)" target="popup">      
+  <area title="DESIREE" shape="rect" coords="100,475,140,485" href="lookup.php?name=DESIREE" alt="Array (1962)" target="popup">      
+  <area title="1584C(10)" shape="rect" coords="200,75,240,85" href="lookup.php?name=1584C%2810%29" alt="" target="popup">      
+  <area title="302.01" shape="rect" coords="200,235,240,245" href="lookup.php?name=302.01" alt="" target="popup">      
+  <area title="URGENTA" shape="rect" coords="200,395,240,405" href="lookup.php?name=URGENTA" alt="Array (1951)" target="popup">      
+  <area title="DEPESCHE" shape="rect" coords="200,555,240,565" href="lookup.php?name=DEPESCHE" alt="Array (1942)" target="popup">      
+  <area title="MAUD MEG" shape="rect" coords="300,35,340,45" href="lookup.php?name=MAUD+MEG" alt="Array (&lt;1921)" target="popup">      
+  <area title="1104C(2)" shape="rect" coords="300,115,340,125" href="lookup.php?name=1104C%282%29" alt="" target="popup">      
+  <area title="M 109-3" shape="rect" coords="300,195,340,205" href="lookup.php?name=M+109-3" alt="" target="popup">      
+  <area title="119-227" shape="rect" coords="300,275,340,285" href="lookup.php?name=119-227" alt="" target="popup">      
+  <area title="FURORE" shape="rect" coords="300,355,340,365" href="lookup.php?name=FURORE" alt="Array (1930)" target="popup">      
+  <area title="KATAHDIN" shape="rect" coords="300,435,340,445" href="lookup.php?name=KATAHDIN" alt="Array (1932)" target="popup">      
+  <area title="DUKE OF YORK" shape="rect" coords="300,515,340,525" href="lookup.php?name=DUKE+OF+YORK" alt="Array (1891)" target="popup">      
+  <area title="IMPOSANT" shape="rect" coords="300,595,340,605" href="lookup.php?name=IMPOSANT" alt="" target="popup">      
+  <area title="unknown" shape="rect" coords="400,15,440,25" href="lookup.php?name=unknown" alt="" target="popup">      
+  <area title="885(4)" shape="rect" coords="400,95,440,105" href="lookup.php?name=885%284%29" alt="" target="popup">      
+  <area title="DR. McINTOSH" shape="rect" coords="400,135,440,145" href="lookup.php?name=DR.+McINTOSH" alt="Array (1944)" target="popup">      
+  <area title="11-76" shape="rect" coords="400,255,440,265" href="lookup.php?name=11-76" alt="" target="popup">      
+  <area title="11-79" shape="rect" coords="400,295,440,305" href="lookup.php?name=11-79" alt="" target="popup">      
+  <area title="RODE STAR" shape="rect" coords="400,335,440,345" href="lookup.php?name=RODE+STAR" alt="Array (1908)" target="popup">      
+  <area title="ALPHA" shape="rect" coords="400,375,440,385" href="lookup.php?name=ALPHA" alt="Array (1874)" target="popup">      
+  <area title="USDA 40568" shape="rect" coords="400,415,440,425" href="lookup.php?name=USDA+40568" alt="" target="popup">      
+  <area title="USDA 24642" shape="rect" coords="400,455,440,465" href="lookup.php?name=USDA+24642" alt="" target="popup">      
+  <area title="EARLY PRIMROSE" shape="rect" coords="400,495,440,505" href="lookup.php?name=EARLY+PRIMROSE" alt="" target="popup">      
+  <area title="KING KIDNEY" shape="rect" coords="400,535,440,545" href="lookup.php?name=KING+KIDNEY" alt="" target="popup">      
+  <area title="INDUSTRIE" shape="rect" coords="400,575,440,585" href="lookup.php?name=INDUSTRIE" alt="Array (1900)" target="popup">      
+  <area title="PEPO" shape="rect" coords="400,615,440,625" href="lookup.php?name=PEPO" alt="" target="popup">      
+  <area title="735" shape="rect" coords="500,85,540,95" href="lookup.php?name=735" alt="" target="popup">      
+  <area title="GLADSTONE" shape="rect" coords="500,105,540,115" href="lookup.php?name=GLADSTONE" alt="" target="popup">      
+  <area title="HERALD" shape="rect" coords="500,125,540,135" href="lookup.php?name=HERALD" alt="" target="popup">      
+  <area title="phu" shape="rect" coords="500,145,540,155" href="lookup.php?name=phu" alt="" target="popup">      
+  <area title="USDA 41956" shape="rect" coords="500,245,540,255" href="lookup.php?name=USDA+41956" alt="" target="popup">      
+  <area title="2-402" shape="rect" coords="500,265,540,275" href="lookup.php?name=2-402" alt="" target="popup">      
+  <area title="USDA 41956" shape="rect" coords="500,285,540,295" href="lookup.php?name=USDA+41956" alt="" target="popup">      
+  <area title="2-402" shape="rect" coords="500,305,540,315" href="lookup.php?name=2-402" alt="" target="popup">      
+  <area title="PROFESSOR WOHLTMANN" shape="rect" coords="500,325,540,335" href="lookup.php?name=PROFESSOR+WOHLTMANN" alt="" target="popup">      
+  <area title="ERICA" shape="rect" coords="500,345,540,355" href="lookup.php?name=ERICA" alt="" target="popup">      
+  <area title="EARLY ROSE" shape="rect" coords="500,365,540,375" href="lookup.php?name=EARLY+ROSE" alt="" target="popup">      
+  <area title="SEBEC" shape="rect" coords="500,385,540,395" href="lookup.php?name=SEBEC" alt="" target="popup">      
+  <area title="BUSOLA" shape="rect" coords="500,405,540,415" href="lookup.php?name=BUSOLA" alt="" target="popup">      
+  <area title="RURAL NEW YORKER NO. 2" shape="rect" coords="500,425,540,435" href="lookup.php?name=RURAL+NEW+YORKER+NO.+2" alt="" target="popup">      
+  <area title="WHITE ROSE" shape="rect" coords="500,445,540,455" href="lookup.php?name=WHITE+ROSE" alt="" target="popup">      
+  <area title="SUTTON&#039;S FLOURBALL" shape="rect" coords="500,465,540,475" href="lookup.php?name=SUTTON%27S+FLOURBALL" alt="" target="popup">      
+  <area title="ZWICKAUER FRUHE" shape="rect" coords="500,565,540,575" href="lookup.php?name=ZWICKAUER+FRUHE" alt="" target="popup">      
+  <area title="SIMSON" shape="rect" coords="500,585,540,595" href="lookup.php?name=SIMSON" alt="" target="popup">      
+  <area title="TASSO" shape="rect" coords="500,605,540,615" href="lookup.php?name=TASSO" alt="" target="popup">      
+  <area title="63/85" shape="rect" coords="500,625,540,635" href="lookup.php?name=63%2F85" alt="" target="popup">      
+  </map>
+  
+  <img src="pedigree_image.php?id=15504&amp;depth=5&amp;showjaar=0" usemap="#pedigreemap" border="0">
+  
+  <br><br>
+  
+  <font size="1" face="verdana">note: tree images are dimensioned to accomodate full info at the deepest level (the more levels, the taller the picture), 
 <br>
-if no info is available at a deep level you may want to reduce the tree depth to obtain a more concise overview
+  if no info is available at a deep level you may want to reduce the tree depth to obtain a more concise overview
 <br><br></font> 
-
-
-<hr class="line2" color="#003366"></div>
-<footer class="text">
+  
+  
+  <hr class="line2" color="#003366"></div>
+  <footer class="text">
   <h2>Plant Breeding</h2>            
-</footer>
-<footer class="bottom">
+  </footer>
+  <footer class="bottom">
   <a href="https://www.wur.nl/" title="Wageningen University &amp; Research">
-    <img src="/PotatoPedigree/layout/images/wur_white.png" alt="Wageningen University and Research - To explore the potential of nature to improve the quality of life" class="left logo" title="Wageningen University and Research - To explore the potential of nature to improve the quality of life">
+  <img src="/PotatoPedigree/layout/images/wur_white.png" alt="Wageningen University and Research - To explore the potential of nature to improve the quality of life" class="left logo" title="Wageningen University and Research - To explore the potential of nature to improve the quality of life">
   </a>
-</footer>  <!-- Google Analytics -->
+  </footer>  <!-- Google Analytics -->
   
   <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-    ga('create', 'UA-18743767-2', 'auto');
-    ga('send', 'pageview');  
-  </script>
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-18743767-2', 'auto');
+ga('send', 'pageview');  
+</script>
   
   <!-- End Google Analytics -->
   </body>
-</html>
+  </html>
 ```
 </details>
 
-Right from the start, there is a challenge: by looking at the HTML code, you’ll notice that the pedigree plot is rendered by displaying a static source image, then overlaying on top some text boxes that allow the use to click on the name of a variety on the image to get more information. This is unfortunate, because it means that the web page does not contain information about the actual relationships between the different varieties. However, we can still extract the name of the varieties displayed on the pedigree, as well as their position on the pedigree tree, and we can use this to reconstruct the tree.
+Right from the start, there is a challenge: by looking at the HTML code, you’ll notice that the pedigree plot is rendered by displaying a static source image, then overlaying on top some text boxes that allow the use to click on the name of a variety on the image to get more information. This is unfortunate, because it means that the web page does not contain information about the actual relationships between the different varieties. However, we can still extract the name of the varieties displayed as well as their position in the pedigree image, and we can use this to reconstruct the pedigree.
 
-### Extracting page source in R
+### Extracting the page source code in R
 
 We’ll use the packages `rvest` and `xml2` to access the source code of the web page directly in R. This is done via the `read_html()` function from `rvest.` Note: I’m also loading the `tidyverse` metapackage, as I’ll use several of its packages to process the information.
 
@@ -200,21 +224,21 @@ page_url <- "https://www.plantbreeding.wur.nl/PotatoPedigree/pedigree_imagemap.p
 raw_html <- read_html(page_url)
 ```
 
-Next, we want to grab from this content the part of the HTML code with the `map` tag. This is done with the `html_nodes()` function; the `html_children()` function then extracts all area elements of the map, which in our case are the blocks of texts corresponding to the varieties in the pedigree.
+Next, we want to grab from this content the part of the HTML code with the `map` tag (this is the part where textboxes with links are added on top of the static pedigree image). This is done with the `html_nodes()` function; the `html_children()` function then extracts all area elements of the map, which in our case are the blocks of texts corresponding to the varieties in the pedigree.
 
 ```{r get-graph-html}
 graph_html <- raw_html %>% 
-    html_nodes("map") %>% 
-    html_children()
+  html_nodes("map") %>% 
+  html_children()
 ```
 
-The resulting graph_html object is a… We can convert this information into a dataframe using the `xml_attrs()` function from the `xml2` package:
+The resulting `graph_html` object is an `xml_nodeset` object. We can convert it into a data-frame using the `xml_attrs()` function from the `xml2` package:
 
 ```{r get-graph-df}
 graph_df <- reduce(xml_attrs(graph_html), bind_rows)
 ```
 
-The resulting dataframe has one row per area element, and each column represents an attribute of the area element.
+The resulting data-frame has one row per area element, and each column represents an attribute of the area element.
 
 ```{r head-graph-df}
 head(graph_df) %>% 
@@ -224,31 +248,31 @@ head(graph_df) %>%
 
 ### Tidying-up - a bit of data wrangling
 
-We'll do a bit of tidying up, to grab the information that will help us reconstruct the relationships between the different varieties in the pedigree image. The position of each text box is stored in the `coord` attribute, which gives the x- an y-positions of the top left and bottom right corners of the text box, separated by commas, as follows: `x_tl`, `y_tl`, `x_br`, `y_br` (tl: top-left corner, br: bottom-right corner). We can extract these values and compute the position of the center of each text box:
+We'll do a bit of tidying up, to grab the information that will help us reconstruct the relationships between the different varieties in the pedigree image. The position of each text box is stored in the `coord` attribute, which gives the x- an y-positions of the top left and bottom right corners of the text box, separated by commas, as follows: `x_tl`, `y_tl`, `x_br`, `y_br` (`tl`: top-left corner, `br`: bottom-right corner). We can extract these values and compute the position of the centre of each text box:
 
 ```{r compute-coords}
 graph_df <- reduce(xml_attrs(graph_html), bind_rows) %>%
-	select(title, coords) %>% 
+  select(title, coords) %>% 
   separate(coords, c("x1", "y1", "x2", "y2"), ",", convert = TRUE) %>%
   mutate(x = (x1 + x2) / 2,
          y = (y1 + y2) / 2)
-```
+``` 
 
 ```{r head-coords}
 #| ref.label = c("head-graph-df"),
 #| echo = FALSE
 ```
 
-Now, the y coordinate of each text box is interesting, because it informs us about the generation (i.e. level within the pedigree) in which each variety appears. I’ve used a factor trick to transform the y position into an integer representing the pedigree generation. Note that when computed this way, the generation will be 0 for the variety of interest, here Red Rascal:
+Now, the x coordinate of each text box is interesting, because it informs us about the generation (i.e. level within the pedigree) at which each variety appears. I’ve used a factor trick to transform the y position into an integer representing the pedigree generation. Note that when computed this way, the generation of the variety of interest (here Red Rascal) will be 0:
 
 ```{r compute-generation}
 graph_df <- reduce(xml_attrs(graph_html), bind_rows) %>%
-	select(title, coords) %>% 
+  select(title, coords) %>% 
   separate(coords, c("x1", "y1", "x2", "y2"), ",", convert = TRUE) %>%
   mutate(x = (x1 + x2) / 2,
          y = (y1 + y2) / 2,
-  generation = factor(x),
-  generation = as.numeric(generation) - 1)
+         generation = factor(x),
+         generation = as.numeric(generation) - 1)
 ```
 
 ```{r head-generation}
@@ -260,12 +284,12 @@ Finally, I’ll rename the title attribute to name (just because), and I’ll ge
 
 ```{r complete-graph-df}
 graph_df <- reduce(xml_attrs(graph_html), bind_rows) %>%
-	select(title, coords) %>% 
+  select(title, coords) %>% 
   separate(coords, c("x1", "y1", "x2", "y2"), ",", convert = TRUE) %>%
   mutate(x = (x1 + x2) / 2,
          y = (y1 + y2) / 2,
-  generation = factor(x),
-  generation = as.numeric(generation) - 1) %>% 
+         generation = factor(x),
+         generation = as.numeric(generation) - 1) %>% 
   select(name = title, generation, x, y) %>% 
   filter(name != "unknown")
 ```
@@ -278,14 +302,14 @@ graph_df <- reduce(xml_attrs(graph_html), bind_rows) %>%
 
 ### Automating the process - a side note on URLs
 
-We’re ready to make this first step of the process into a function. The obvious argument of this function is of course the URL of the web page. However, some poking around reveals that the URL of a specific pedigree follows a pattern. The default search URL always looks like this:
+We’re ready to make this first step of the process into a function. The obvious argument of this function is of course the URL of the web page. However, some poking around reveals that the URL of a specific pedigree follows a pattern. The default URL always looks like this:
 
 ```
 https://www.plantbreeding.wur.nl/PotatoPedigree/pedigree_imagemap.php
 ?id=XXXXX
 ```
 
-where the ID depends on the variety you are querying. Then, if you want to change the depth of the pedigree, the url becomes:
+where the ID depends on the variety we are querying. Then, if we change the depth of the pedigree, the URL becomes:
 
 ```
 https://www.plantbreeding.wur.nl/PotatoPedigree/pedigree_imagemap.php
@@ -296,7 +320,7 @@ Apparently the depth can be any integer between 2 and 8 included. (The argument 
 
 So rather than supplying the URL to the function, we can instead pass the ID of the pedigree search and the depth of the pedigree that we want to get. We get the following function:
 
-```{r get-pedigree-graph-function}
+```{r get-pedigree-graph}
 get_pedigree_graph <- function(image_id, depth = 5){
   page_url <- paste0(
     "https://www.plantbreeding.wur.nl/PotatoPedigree/pedigree_imagemap.php?id=", 
@@ -337,5 +361,417 @@ get_pedigree_graph(15504, 6) %>%
 
 ## Reconstructing the pedigree graph
 
-Now comes the more complicated part. We'll use the coordinates of the varieties in the pedigree image to reconstruct the parental relationships between them. We'll use the data-frame constructed above.
+Now comes the more complicated part. We'll use the coordinates of the varieties in the pedigree image to reconstruct the parental relationships between them.
+
+### Figuring out the parental relationships
+
+The coordinates of the varieties in the pedigree image are actually all we need to find out what are the parents of each variety. You can notice that, in the pedigree image, the parents of a given variety X are located on the right of X (on the x-axis), and on the y-axis, X is located halfway between its parents. Therefore, we can use a combination of distance on the x and y axes between two varieties to determine whether one is a child of the other. 
+
+I’ll start by looking at the distance on the x-axis between a parent and its child. As the varieties get closer to each other as the generation considered increases, there is a different x-distance between parent and child for each generation. I’ll compute this distance as the smallest x-distance between all pairs of varieties from two successive generations.
+
+```{r get-distance-parent-child}
+## How many generations are there in the graph
+n_gens <- n_distinct(graph_df$generation)
+
+## What is the distance on the y-axis between a parent and its child
+par_dist <- sapply(0:(n_gens - 2), function(i){
+  expand_grid(genc = filter(graph_df, generation == i)$y, 
+              geno = filter(graph_df, generation == (i + 1))$y) %>% 
+    mutate(diff = abs(genc - geno)) %>% 
+    pull(diff) %>% 
+    min()
+})
+```
+
+Now that we have this information, we can, for each variety on the graph that has parents (i.e. not varieties in the highest generation), look for its parents amongst the varieties in the previous generation. In the code below, I look at each variety in turn (i.e. each row in the `graph_df` data-frame computed above), excluding varieties that are in the far right of the pedigree image, as these are the “oldest” varieties in the pedigree with no parental information. For a variety `i`, I look for varieties that are one generation above, and that are located on the x-axis at the correct "parental distance" to variety `i` (which has been computed and saved in the vector `par_dist`). I make a quick sanity check to make sure that my code doesn’t find more than 2 parents for `i` (that would be a problem), then I return a data-frame with the list of directed edges between each of the parents and `i`. I sort the parents according to their names, to make sure that if a variety appears more than once in the graph, the order of its parents on the x-axis does not matter. I’ll assign a `parentID` to each parent; this is to make sure that if a variety is a self of its parent, we keep two edges between the parent and the child.
+
+```{r get-edges-df}
+edges_df <- lapply(which(graph_df$generation < max(graph_df$generation)), function(i){
+  i_name <- graph_df$name[i]
+  i_gen <- graph_df$generation[i]
+  i_y <- graph_df$y[i]
+  
+  ## Parents are the nodes one generation up and with the correct distance
+  ## on the y axis to the current node investigated
+  parents <- graph_df %>% 
+    filter(generation == i_gen + 1) %>% 
+    mutate(distance = abs(y - i_y)) %>% 
+    filter(distance == par_dist[i_gen + 1]) %>% 
+    pull(name)
+  
+  ## Making sure that we never see more than 2 parents
+  if(length(parents) > 2) error("more than 2 parents for row ", i)
+  
+  if(length(parents)){
+    tibble(to = i_name,
+           ## This way the ordering of two parents is the same for all graphs
+           from = sort(parents),
+           ## Make sure to keep both edges if a variety is a self of the parent
+           parentID = 1:length(parents))
+  } else {
+    tibble(to = NULL, from = NULL, parentID = NULL)
+  }
+  
+}) %>% 
+  reduce(bind_rows) %>% 
+  distinct()
+```
+
+The result of this bit of code is a data-frame with columns `to` and `from`, that represent the directed edges in the pedigree graph from each parent to its child, along with a `parentID` to make sure that we keep information about selfing (i.e. when the same variety is used for both parents).
+
+Again, we can turn this code into a function that we'll call `get_pedigree_edges`:
+
+```{r get-pedigree-edges}
+get_pedigree_edges <- function(graph_df){
+  
+  ## How many generations are there in the graph
+  n_gens <- n_distinct(graph_df$generation)
+  
+  ## What is the distance on the y-axis between a parent and its child
+  par_dist <- sapply(0:(n_gens - 2), function(i){
+    expand_grid(genc = filter(graph_df, generation == i)$y, 
+                geno = filter(graph_df, generation == (i + 1))$y) %>% 
+      mutate(diff = abs(genc - geno)) %>% 
+      pull(diff) %>% 
+      min()
+  })
+  
+  edges_df <- lapply(
+    which(graph_df$generation < max(graph_df$generation)), 
+    function(i){
+      i_name <- graph_df$name[i]
+      i_gen <- graph_df$generation[i]
+      i_y <- graph_df$y[i]
+      
+      ## Parents are the nodes one generation up and with the correct distance
+      ## on the y axis to the current node investigated
+      parents <- graph_df %>% 
+        filter(generation == i_gen + 1) %>% 
+        mutate(distance = abs(y - i_y)) %>% 
+        filter(distance == par_dist[i_gen + 1]) %>% 
+        pull(name)
+      
+      ## Making sure that we never see more than 2 parents
+      if(length(parents) > 2) error("more than 2 parents for row ", i)
+      
+      if(length(parents)){
+        tibble(to = i_name,
+               ## This way the ordering of two parents is the same 
+               ## for all graphs
+               from = sort(parents),
+               ## Make sure to keep both edges if a variety is a 
+               ## self of the parent
+               parentID = 1:length(parents))
+      } else {
+        tibble(to = NULL, from = NULL, parentID = NULL)
+      }
+      
+    }
+  ) %>% 
+    reduce(bind_rows) %>% 
+    distinct()
+}
+```
+
+
+### Figuring out the position of the nodes
+
+At this point, it is worth mentioning that I am planning to plot my pedigree using the R package `visNetwork`. `visNetwork` produces interactive graphs, which is awesome to query your pedigree in more detail, and zoom on some sections of interest, etc. In addition, `visNetwork` offers the option to represent a graph with a hierarchical layout, which is very appropriate for pedigree graphs. I am mentioning this because it affects the information that I want to extract about the varieties. Importantly, for the hierarchical layout from `visNetwork`, it is best to specify the level of each node (i.e. how far up they are in the graph), and a starting position within the corresponding level. Here, the level clearly corresponds to the generation at which the variety is found. However, we can encounter problems if the same variety is present several times in the graph, at different generations (e.g. if a variety is both a grandparent and a parent of our query). The second problem is about the starting position within a level; in our case we'd like the child of two parents to be located in between the parents, so that we get a sensible pedigree representation that is easy to understand.
+
+We’ll bundle all that processing into the function `get_pedigree_nodes()`. The function will take as input the edges data-frame that we constructed in the previous step. For the `visNetwork` package, we need an `id` column that gives the ID of each node in the graph, as well as a `label` column that corresponds to the text that will be printed for each node. We’ll use the name of the varieties as IDs, and do a bit of tweaking for the label so that varieties with very long names are not taking too much space horizontally. In this case what I’m doing is that if a variety has a long name (i.e. more than 11 characters) with an "x" in the middle (e.g. ["1ARRAN CHIEF x MAJESTIC"](https://www.plantbreeding.wur.nl/PotatoPedigree/lookup.php?name=1ARRAN+CHIEF+x+MAJESTIC)), then a newline symbol is placed just before the "x". Otherwise, if the variety with a long name has a space in its name, the newline symbol will be replacing the white space. It’s far from perfect, but that's a start.
+
+```{r get-nodes-df}
+## Make the nodes df and tidy up nodes label
+nodes_df <- tibble(id = unique(c(edges_df$to, edges_df$from)),
+                   label = id) %>% 
+  mutate(label = case_when(
+    str_detect(label, "^[^\\n]{11}") ~ str_replace(label, " x ", "\nx "),
+    TRUE ~ label
+  ),
+  label = case_when(
+    str_detect(label, "^[^\\n]{11}") ~ str_replace(label, " ", "\n"),
+    TRUE ~ label
+  ))
+```
+
+The next step is to attribute to each node a level and a starting position within this level. I chose the following approach:
+
+1. each node starts without level nor starting position;
+2. I look for the nodes with no children (typically the variety that we queried, in this case Red Rascal), these will be my focus nodes, and I set the current level to 0;
+3. I set the position of the focus nodes. *This part is not perfect, because it depends on fixing the max number of generations in the graph, but it works for now and that's good enough for me :)*;
+4. Start of a while loop, which will only stop when I run out of focus nodes;
+5. I increase the current level by 1;
+6. the new set of nodes are the parents of the focus nodes; I set the level of these new nodes to the current level;
+7. I compute the position of each node in the new set, I place them on either side of their child;
+8. The parents of the focus nodes become the new focus nodes, and I repeat steps 5 to 7 until I run out of focus nodes.
+
+The code for the set-up (steps 1 to 3) is:
+
+```{r steps-one-to-three}
+max_level <- 10
+
+nodes <- nodes_df$id
+
+## Step 1: initialise level and position of nodes to NA
+nodes_level <- rep(NA_integer_, length(nodes))
+nodes_y <- rep(NA_integer_, length(nodes))
+names(nodes_level) <- names(nodes_y) <- nodes
+
+## Step 2: Get the end nodes, as the ones with no edges coming out of them
+focus_nodes <- setdiff(nodes, unique(edges_df$from))
+nodes_level[focus_nodes] <- 0
+
+## Step 3: compute the position of the end nodes
+nodes_y[focus_nodes] <- seq(1, length(focus_nodes)*2^max_level, by = 2^max_level)
+```
+
+And then the loop:
+
+```{r steps-four-to-seven}
+## Step 4: loop over my focus nodes
+## The loop stops when we run out of focus nodes
+current_level <- 0
+
+while(length(focus_nodes)){
+  
+  ## Step 5: increase the current level by 1
+  current_level <- current_level + 1
+  
+  ## Step 6: find the parents of the current focus nodes...
+  parents_df <- edges_df %>% 
+    filter(to %in% focus_nodes)
+  
+  new_nodes <- parents_df$from
+  
+  ## ... and set their level to the current level
+  nodes_level[new_nodes] <- current_level
+  
+  ## Step 7: I compute the position of the new nodes
+  ## based on the position of their children
+  nodes_y[new_nodes] <- nodes_y[parents_df$to] + (parents_df$parentID - 1) * 2^(max_level - current_level)
+  
+  ## I set the parent nodes as my new focus nodes
+  focus_nodes <- new_nodes
+}
+```
+
+Finally, I return a data-frame in which each row is a node, with information about its level and position in the pedigree graph:
+
+```{r return-nodes-df, eval = FALSE}
+nodes_df %>% 
+  mutate(level = nodes_level[id],
+         y = nodes_y[id])
+```
+
+```{r return-nodes-df-kabble, echo = FALSE}
+nodes_df %>% 
+  mutate(level = nodes_level[id],
+         y = nodes_y[id]) %>% 
+  head() %>% 
+  knitr::kable()
+```
+
+
+The complete function is then:
+
+```{r get-pedigree-nodes}
+get_pedigree_nodes <- function(edges_df, max_level = 10){
+  
+  ## Make the nodes df and tidy up nodes label
+  nodes_df <- tibble(id = unique(c(edges_df$to, edges_df$from)),
+                     label = id) %>% 
+    mutate(label = case_when(
+      str_detect(label, "^[^\\n]{11}") ~ str_replace(label, " x ", "\nx "),
+      TRUE ~ label
+    ),
+    label = case_when(
+      str_detect(label, "^[^\\n]{11}") ~ str_replace(label, " ", "\n"),
+      TRUE ~ label)
+    )
+  
+  nodes <- nodes_df$id
+  
+  ## Get the end nodes, as the ones with no edges coming out of them
+  gen0_nodes <- setdiff(nodes, unique(edges_df$from))
+  
+  nodes_level <- rep(NA_integer_, length(nodes))
+  nodes_y <- rep(NA_integer_, length(nodes))
+  names(nodes_level) <- names(nodes_y) <- nodes
+  
+  nodes_level[gen0_nodes] <- 0
+  nodes_y[gen0_nodes] <- seq(1, 
+                             length(gen0_nodes)*2^max_level, 
+                             by = 2^max_level)
+  
+  current_nodes <- gen0_nodes
+  current_level <- 0
+  
+  while(length(current_nodes)){
+    current_level <- current_level + 1
+    
+    parents_df <- edges_df %>% 
+      filter(to %in% current_nodes)
+    
+    new_nodes <- parents_df$from
+    
+    nodes_level[new_nodes] <- current_level
+    nodes_y[new_nodes] <- nodes_y[parents_df$to] + 
+      (parents_df$parentID - 1) * 2^(max_level - current_level)
+    
+    current_nodes <- new_nodes
+  }
+  
+  nodes_df %>% 
+    mutate(level = nodes_level[id],
+           y = nodes_y[id])
+  
+}
+```
+
+
+## Plotting the pedigree graph
+
+Finally, we can plot the pedigree as a tree! As mentioned above, I’ll use the `VisNetwork` for that. This is pretty straightforward: the `vistNetwork` function takes as input the data-frame of nodes and the data-frame of edges that we have computed above. I’ve added some options to make the interactive plot larger, to get arrows on the edges pointing towards the child node, and directing the function to plot the graph from left to right, so that the parents are on the left of their children. This is consistent with the images shown in the pedigree database. 
+
+```{r plot-pedigree-basic}
+library(visNetwork)
+
+edges_df <- get_pedigree_edges(graph_df)
+nodes_df <- get_pedigree_nodes(edges_df)
+
+visNetwork(nodes_df, edges_df, width = "100%", height = 1500) %>% 
+    visEdges(arrows = "to") %>% 
+    visHierarchicalLayout(direction = "LR")
+```
+
+We can improve this plot a bit. In particular, there is probably a particular variety or a few varieties are of particular interest, so I'll add an option to highlight them in the plot. I'll also change the colour of the other nodes. Let's say that we want to emphasise Red Rascal and Urgenta in the plot:
+
+```{r plot-pedigree-highlight}
+nodes_highlight <- c("Red Rascal", "Urgenta")
+
+pattern <- paste0("(", paste0("(", nodes_highlight, ")", collapse = "|"), ")")
+
+nodes_df <- nodes_df %>% 
+  mutate(group = str_detect(id, regex(pattern, ignore_case = TRUE)),
+         group = factor(group))
+
+  visNetwork(nodes_df, edges_df, width = "100%", height = 1500) %>% 
+    visEdges(arrows = "to") %>% 
+    visHierarchicalLayout(direction = "LR") %>% 
+    visGroups(groupname = "FALSE", color = list(border = "#1560D1", background = "#347DEB")) %>%
+    visGroups(groupname = "TRUE", color = list(border = "#B35900", background = "#FF9933"))
+```
+
+
+Et voilà! Our main wrapper function would look something like that:
+
+```{r wrapper-function-one}
+plot_pedigree <- function(image_id, depth = 5, nodes_highlight = NULL){
+  
+  ## Extract pedigree information from webpage source code
+  graph_df <- get_pedigree_graph(image_id, depth)
+  
+  ## Extract parental relationships from pedigree info
+  edges_df <- get_pedigree_edges(graph_df)
+  
+  ## Construct nodes from parental relationships
+  nodes_df <- get_pedigree_nodes(edges_df)
+  
+  ## Add highlight for nodes of interest
+  if(!is.null(nodes_highlight)){
+    pattern <- paste0("(", paste0("(", nodes_highlight, ")", collapse = "|"), ")")
+    
+    nodes_df <- nodes_df %>% 
+      mutate(group = str_detect(id, regex(pattern, ignore_case = TRUE)),
+             group = factor(group))
+  } else {
+    nodes_df <- nodes_df %>% 
+      mutate(group = factor("FALSE", levels = c("FALSE", "TRUE")))
+  }
+  
+  ## Plot network
+  visNetwork(nodes_df, edges_df, width = "100%", height = 1500) %>% 
+    visEdges(arrows = "to") %>% 
+    visHierarchicalLayout(direction = "LR") %>% 
+    visGroups(groupname = "FALSE", color = list(border = "#1560D1", background = "#347DEB")) %>%
+    visGroups(groupname = "TRUE", color = list(border = "#B35900", background = "#FF9933"))
+}
+```
+
+
+But wait, it's not over...
+
+## Combining several pedigrees
+
+The main reason I went through this whole process, rather than just using the pedigree plot from the Potato Pedigree Database, is because I wanted to be able to combine the pedigree of several varieties in a single plot. This would allow me to highlight the relationship between them, and show whether they are sharing common ancestors, etc. In addition, I want to be able to add some edges that are not present in the database. This is useful if I want to add to the pedigree the progeny from a cross between two varieties that is not in the database.
+
+In order to do all of that, I've made some changes to my main wrapper function, as follows:
+
+```{r plot-pedigree}
+plot_pedigree <- function(image_ids, 
+                          depths, 
+                          nodes_highlight = NULL, 
+                          edges_to_add = NULL){
+  
+  ## Allow user to choose different depths for each pedigree
+  ## If only provides one depth value, will apply it to all queried pedigrees
+  if((length(depths) == 1) & (length(image_ids) > 1)){
+    depths <- rep(depths, length(image_ids))
+  } 
+  
+  ## Extract pedigree information from webpage
+  graph_list <- lapply(1:length(image_ids), function(i){
+    get_pedigree_graph(image_ids[i], depths[i])
+  })
+  
+  ## Extract parental relationships from pedigree info
+  edges_df <- lapply(graph_list, get_pedigree_edges) %>% 
+    reduce(bind_rows) %>% 
+    distinct() 
+  
+  ## Add the custom edges to edges dataframe
+  if(!is.null(edges_to_add)) {
+    edges_df <- edges_df %>% 
+      bind_rows(edges_to_add) %>% 
+      distinct()
+  }
+  
+  ## Construct nodes from parental relationships
+  nodes_df <- get_pedigree_nodes(edges_df)
+  
+  ## Add highlight for nodes of interest
+  if(!is.null(nodes_highlight)){
+    pattern <- paste0("(", paste0("(", nodes_highlight, ")", 
+                                  collapse = "|"),
+                      ")")
+    nodes_df <- nodes_df %>% 
+      mutate(group = str_detect(id, regex(pattern, ignore_case = TRUE)),
+             group = factor(group))
+  } else {
+    nodes_df <- nodes_df %>% 
+      mutate(group = factor("FALSE", levels = c("FALSE", "TRUE")))
+  }
+  
+  visNetwork(nodes_df, edges_df, width = "100%", height = 1500) %>% 
+    visEdges(arrows = "to") %>% 
+    visHierarchicalLayout(direction = "LR") %>% 
+    visGroups(groupname = "FALSE", 
+              color = list(border = "#1560D1", background = "#347DEB")) %>%
+    visGroups(groupname = "TRUE",
+              color = list(border = "#B35900", background = "#FF9933"))
+}
+```
+
+
+Let's look at an example:
+
+```{r final-example}
+plot_pedigree(c(15504,   ## Red Rascal
+                14802),  ## Pacific
+              depths = c(4, 3),
+              nodes_highlight = c("Red Rascal", "Pacific", "My own cross!"),
+              ## Completely made-up edge
+              edges_to_add = tibble(from = c("V394", "PACIFIC"),
+                                    to = rep("My own cross!", 2)))
+```
 
