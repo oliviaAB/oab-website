@@ -21,8 +21,11 @@
   </section>
 </main>
 <aside class="page-sidebar" role="complementary">
-  {{ partial "shared/sidebar-scaffold.html" . }}
+  {{ partial "shared/sidebar-scaffold-blogpost.html" . }}
+  {{ partial "shared/post-toc.html" . }}
+  <!---
   {{ .Scratch.Set "details" "open" }}
   {{ partial "shared/post-details.html" . }}
+  --->
 </aside>
 {{ end }}

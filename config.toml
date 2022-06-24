@@ -21,18 +21,18 @@ enableEmoji = true
     hardwraps = false
   [markup.tableOfContents]
     startLevel = 2
-    endLevel = 2
+    endLevel = 3
     ordered = false
   [markup.highlight]
     # one of: https://xyproto.github.io/splash/docs/
     style = "github"
 
 [params]
-  orgName = "Massey University"
-  orgLocal = "Palmerston North, New Zealand"
-  description = "My personal website."
-  favicon = "/img/favicon.ico"
-  logo = "/img/blogophonic-mark-dark.png"
+  orgName = "Olivia Angelin-Bonnet"
+  orgLocal = ""
+  description = "Personal website of Dr. Olivia Angelin-Bonnet"
+  favicon = "/img/icons8-laptop-64.png"
+  logo = "/img/home_icon.png"
   mainSections = ["blog", "project", "talk"]
   navallcaps = true
   # show/hide social icons in site header & footer
@@ -48,7 +48,7 @@ enableEmoji = true
   # use a built-in color theme
   # one of: forest / grayscale / peach / plum /
   #         poppy / sky / violet / water
-  theme = "grayscale"
+  theme = "sky"
 
   # or, leave theme empty & make your own palette
   # see docs at https://hugo-apero.netlify.app/blog/color-themes/
@@ -95,7 +95,7 @@ enableEmoji = true
       url       = "https://twitter.com/AngelinBonnet"
   [[params.social]]
       icon      = "linkedin-in" # icon name without the 'fa-'
-      icon_pack = "ai"
+      icon_pack = "fab"
       url       = "https://www.linkedin.com/in/olivia-angelin-bonnet-294502109/"
   [[params.social]]
       icon      = "orcid" # icon name without the 'fa-'
@@ -119,30 +119,25 @@ enableEmoji = true
     url = "/about/"
     weight = 1
   [[menu.header]]
-    name = "Blog"
-    title = "Blog"
-    url = "/blog/"
+    name = "Publications"
+    title = "Publications"
+    url = "/publication/"
     weight = 2
-  [[menu.header]]
-    name = "Projects"
-    title = "Project Portfolio"
-    url = "/project/"
-    weight = 3
   [[menu.header]]
     name = "Talks"
     title = "Talks"
     url = "/talk/"
+    weight = 3
+  [[menu.header]]
+    name = "Projects"
+    title = "Project Portfolio"
+    url = "/project/"
     weight = 4
   [[menu.header]]
-    name = "A collection"
-    title = "A collection"
-    url = "/collection/"
+    name = "Blog"
+    title = "Blog"
+    url = "/blog/"
     weight = 5
-  [[menu.header]]
-    name = "Elements"
-    title = "Element Page"
-    url = "/elements/"
-    weight = 6
 
   # Configure footer
   [[menu.footer]]
@@ -155,11 +150,6 @@ enableEmoji = true
     title = "Contact form"
     url = "/contact/"
     weight = 2
-  [[menu.footer]]
-    name = "Contributors"
-    title = "Contributors"
-    url = "/contributors/"
-    weight = 3
 
 # see https://gohugo.io/about/hugo-and-gdpr/
 [privacy]

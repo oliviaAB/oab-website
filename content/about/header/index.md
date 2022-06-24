@@ -3,10 +3,8 @@
 text_align_right: false
 show_title_as_headline: false
 headline: |
-  Hi, my name is Hugo Apéro. Nice to meet you.
+  Hello there.
 ---
 
 <!-- this is a subheadline -->
-I'm a Hugo theme you'll want to hang out with. :fr: 
-
-The page you are reading is based on a markdown file- look in `content/about/` to edit. There, look inside the `header`, `main`, and `sidebar` folders to get started building your own "about" page.
+I am French :fr:, currently living in New Zealand. I completed my PhD at Massey University, during which I worked on unraveling genotype-to-phenotype relationships in polyploid organisms, using multi-omics integration and causal inference. After my PhD, I became a Lecturer in Applied Statistics at Massey for a year and a half, before joining Plant and Food Research as a statistical scientist. I work on analysing biological datasets, mostly using R. I love learning about and using tools to make research more reproducible and shareable.
