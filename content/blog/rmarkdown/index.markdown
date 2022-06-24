@@ -9,7 +9,7 @@ images:
 series:
 tags:
 categories:
-layout: single
+layout: single-sidebar
 ---
 
 

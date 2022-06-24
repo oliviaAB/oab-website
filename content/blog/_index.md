@@ -13,7 +13,7 @@ thumbnail_left: true
 
 sidebar:
   title: "\"Le hasard ne favorise que les esprits préparés.\""
-  author: The R Markdown Team @RStudio
+  author: "Olivia Angelin-Bonnet"
   description: "*Quote that may or may not be attributed to Louis Pasteur,
   who may have used these or similar words...*<br><br>
   <font size='2'>Photo by [Aaron Burden](https://unsplash.com/@aaronburden?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)</font>"

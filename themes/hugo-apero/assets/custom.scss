@@ -1,1 +1,48 @@
 // Override this file to add your own SCSS styling.
+
+// ToC ------------------------------------------------------------------------
+// modified from: scaffold.scss, series + collections table of contents
+
+html {
+  scroll-behavior: smooth;
+}
+
+// styles h1 and h2
+nav#TableOfContents ul li {
+  @extend .f5, .lh-title-ns;
+  // all links
+  a {
+    @extend .no-underline;
+    // transition: all 50mx ease-in-out;
+  }
+  // active list items
+  &.active {
+    @extend .pl3, .bg-#{$siteBgColor}, .bl, .b--#{$borderColor}, .bw1;
+  }
+  // non-active list items
+  &:not(.active) {
+    @extend .pl3, .bl, .bw1, .b--transparent;
+  }
+  // hovering over active links
+  &:hover.active a {
+    @extend .underline;
+  }
+  // hovering over non-active links
+  &:hover:not(.active) a {
+   //@extend .underline;
+  }
+  &a:hover {
+    @extend .br;
+  }
+  // within nested list items
+  li {
+    // hovering over active links
+    &:hover.active a {
+      //@extend .dim;
+    }
+    // hovering over non-active links
+    &:hover:not(.active) a {
+      @extend .underline; //.dim;
+    }
+  }
+}
