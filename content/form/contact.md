@@ -2,7 +2,7 @@
 date: "2019-02-25T13:38:41-06:00"
 description: Feel free to get in touch :) Please note that it might take me a few days to answer.
 draft: false
-formspree_form_id: olivia.angelinbonnet@gmail.com
+formspree_form_id: mlezkwgn
 layout: split-right
 name: Contact Us Form
 show_poweredby_formspree: true
