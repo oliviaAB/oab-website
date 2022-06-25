@@ -31,8 +31,8 @@ enableEmoji = true
   orgName = "Olivia Angelin-Bonnet"
   orgLocal = ""
   description = "Personal website of Dr. Olivia Angelin-Bonnet"
-  favicon = "/img/icons8-laptop-64.png"
-  logo = "/img/home_icon.png"
+  favicon = "/img/laptop.png"
+  logo = "/img/flowers.png"
   mainSections = ["blog", "project", "talk"]
   navallcaps = true
   # show/hide social icons in site header & footer
@@ -41,27 +41,27 @@ enableEmoji = true
   socialInFooter = true
   # Default image for social sharing and search engines.
   # Place image file in `static` folder and specify image name here.
-  sharing_image = "/img/papillons.jpg"
+  sharing_image = "/img/laptop.jpg"
   # Twitter username (without @). Used when a visitor shares your site on Twitter.
-  twitter = "apreshill"
+  twitter = "oliviaAB"
 
   # use a built-in color theme
   # one of: forest / grayscale / peach / plum /
   #         poppy / sky / violet / water
-  theme = "sky"
+  theme = ""
 
   # or, leave theme empty & make your own palette
   # see docs at https://hugo-apero.netlify.app/blog/color-themes/
   # the custom scss file must be in the assets/ folder
   # add the filename name here, without extension
   # to use hex colors instead of named tachyons colors, include "hex" in filename
-  custom_theme = ""
+  custom_theme = "oab-hex"
 
   # use an embedded font-family
   # serif options: Fraunces / EB Garamond / Bitter
   # sans-serif options: Commissioner / Atkinson Hyperlegible / Metropolis
   # if you import your own fonts, name them here too
-  customtextFontFamily = "Metropolis"
+  customtextFontFamily = "Commissioner"
   customheadingFontFamily = "EB Garamond"
   # alternatively, leave empty and select basic font options: sans-serif or serif
   # for more http://tachyons.io/docs/typography/font-family/
@@ -115,7 +115,7 @@ enableEmoji = true
   # Configure header
   [[menu.header]]
     name = "About"
-    title = "About Blogophonic"
+    title = "About"
     url = "/about/"
     weight = 1
   [[menu.header]]
@@ -130,7 +130,7 @@ enableEmoji = true
     weight = 3
   [[menu.header]]
     name = "Projects"
-    title = "Project Portfolio"
+    title = "Projects Portfolio"
     url = "/project/"
     weight = 4
   [[menu.header]]
@@ -146,10 +146,15 @@ enableEmoji = true
     url = "/license/"
     weight = 1
   [[menu.footer]]
+    name = "Credit"
+    title = "Credit"
+    url = "/credit/"
+    weight = 2
+  [[menu.footer]]
     name = "Contact"
     title = "Contact form"
     url = "/contact/"
-    weight = 2
+    weight = 3
 
 # see https://gohugo.io/about/hugo-and-gdpr/
 [privacy]
