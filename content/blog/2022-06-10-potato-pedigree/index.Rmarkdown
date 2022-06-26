@@ -775,3 +775,5 @@ plot_pedigree(c(15504,   ## Red Rascal
                                     to = rep("My own cross!", 2)))
 ```
 
+Hopefully this code can help you reproduce pedigrees in R as well :)
+
