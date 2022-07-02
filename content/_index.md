@@ -2,7 +2,7 @@
 action_label: More about me &rarr;
 action_link: /about
 action_type: text
-description: I am a Lecturer in Applied Statistics at Massey University (Palmerston North, New Zealand). I am passionate about Systems Biology, 'omics data analysis and integration, and the study of biological networks from a statistical and computational perspective. I love using R for data analysis, creating (lots of) (gg)plots.
+description: I am a Statistical Scientist at The New Zealand Institute for Plant and Food Research Limited (Palmerston North, New Zealand). I am passionate about Systems Biology, 'omics data analysis and integration, and the study of biological networks from a statistical and computational perspective. I love using R for data analysis, creating (lots of) (gg)plots.
 image_left: false
 images:
 - img/Olivia_Angelin-Bonnet.jpg
