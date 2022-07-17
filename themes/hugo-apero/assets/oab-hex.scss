@@ -8,19 +8,26 @@ $grey: #757370;
 $almost-white: #f6eff1;
 // $pale-blue: #E6E6FF;
 
+$background-blue: #edf2f7; // #ecf2f9; //
+$steel-blue-pale: #d9e6f2;
+$steel-blue-med: #336699;
+$pumpkin: #e64d00; //  #cc4400; //
+$steel-blue-dark: #204060;
+$almost-black: #19334d;
+
 // set custom hex colors
-$siteBgColorCustom: $pale-pink;
-$sidebarBgColorCustom: $medium-pink;
-$textColorCustom: $black;
-$sidebarTextColorCustom: $black;
-$headlineColorCustom: $dark-blue;
-$headingColorCustom: $dark-blue;
-$bodyLinkColorCustom: $dark-blue;
-$navLinkColorCustom: $orchid;
-$sidebarLinkColorCustom: $dark-blue;
+$siteBgColorCustom: $background-blue;
+$sidebarBgColorCustom: $steel-blue-pale;
+$textColorCustom: $almost-black;
+$sidebarTextColorCustom: $almost-black;
+$headlineColorCustom: $pumpkin;
+$headingColorCustom: $pumpkin;
+$bodyLinkColorCustom: $steel-blue-med;
+$navLinkColorCustom: $steel-blue-med;
+$sidebarLinkColorCustom: $steel-blue-med;
 $footerTextColorCustom: $grey;
 $buttonTextColorCustom: $almost-white;
 $buttonHoverTextColorCustom: $almost-white;
-$buttonBgColorCustom: $orchid;
-$buttonHoverBgColorCustom: $dark-orchid;
-$borderColorCustom: $dark-blue;
+$buttonBgColorCustom: $steel-blue-med;
+$buttonHoverBgColorCustom: $steel-blue-dark;
+$borderColorCustom: $steel-blue-med;
