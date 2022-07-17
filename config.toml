@@ -31,8 +31,8 @@ enableEmoji = true
   orgName = "Olivia Angelin-Bonnet"
   orgLocal = ""
   description = "Personal website of Dr. Olivia Angelin-Bonnet"
-  favicon = "/img/laptop.png"
-  logo = "/img/flowers.png"
+  favicon = "/img/book.png"
+  logo = "/img/book.png"
   mainSections = ["blog", "project", "talk"]
   navallcaps = true
   # show/hide social icons in site header & footer

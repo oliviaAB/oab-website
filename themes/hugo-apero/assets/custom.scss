@@ -16,8 +16,9 @@ nav#TableOfContents ul li {
     // transition: all 50mx ease-in-out;
   }
   // active list items
+  // default is @extend .pl3, .bg-#{$siteBgColor}, .bl, .b--#{$borderColor}, .bw1;
   &.active {
-    @extend .pl3, .bg-#{$siteBgColor}, .bl, .b--#{$borderColor}, .bw1;
+    @extend .pl3, .bg-#{$siteBgColor}, .bl, .b--#{$headlineColor}, .bw1;
   }
   // non-active list items
   &:not(.active) {
