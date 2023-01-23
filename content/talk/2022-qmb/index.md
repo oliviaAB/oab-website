@@ -5,7 +5,7 @@ excerpt: Presentation of the research I've done during my PhD.
 author: Olivia Angelin-Bonnet, Susan Thomson, Samantha Baldwin, Patrick J. Biggs and Matthieu Vignes
 event: Queenstown Research Week 2022
 event_url: https://www.queenstownresearchweek.org/
-date: "2022-09-01"
+date: "2022-08-31"
 location: Queenstown, New Zealand
 categories:
 - genetics
