@@ -1,0 +1,27 @@
+---
+title: |
+  The hidecan package: visual integration of GWAS and differential expression results
+excerpt: Presentation a R package I developed for visualisation of GWAS and DE results.
+author: Olivia Angelin-Bonnet, Matthieu Vignes, Patrick J. Biggs, Samantha Baldwin and Susan Thomson
+event: Tools for Polyploids Workshop 2023
+event_url: https://www.polyploids.org/workshop-2023
+date: "2023-01-13"
+location: "San Diego, USA"
+categories:
+- genetics
+- conference
+- R-package
+draft: false
+featured: true
+layout: single
+show_post_time: false
+
+links:
+- icon: play-circle
+  icon_pack: fas
+  name: Recording coming soon
+---
+
+## Abstrat
+
+Genome-wide association studies (GWAS) are often conducted with the goal of ultimately detecting genes involved in the genetic control of a trait of interest. Thus, in order to complement the results of such a study, differential expression (DE) experiments can be used to identify genes whose expression varies between two conditions. Alternatively, if several traits are measured for the genotyped individuals, it can be interesting to assess whether there is any overlap between the genomic regions found associated with each of the traits. In both cases, there is currently a lack of clear visualisation to summarise and integrate the results of multiple GWAS and/or DE analyses. Manhattan plots are only suited for a single GWAS, and circos plots do not permit a good comparison of the results from several analyses. Here we present the hidecan R package, for visualising the results from multiple GWAS and/or differential expression (DE) experiments. Given markers or genes scores from one or more GWAS and DE analyses, the package displays the genomic position of the markers and genes whose score exceeds a threshold set by the user. The significance threshold can be set independently for GWAS and DE results. In addition, the user can provide a list of candidate genes (e.g. genes known to affect the trait investigated), which will be added to the visualisation. The resulting hidecan plot provides a clear visual summary of the different analyses, and can integrate prior knowledge about the trait(s) under study. It can be used to identify genomic regions associated with a trait of interest both through high-scoring markers and differentially expressed genes or highlight any overlap in the genetic control of several related traits. The hidecan package also offers a Shiny app through which the user can create a hidecan plot, which can then be exported as a PNG or PDF file.

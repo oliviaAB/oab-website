@@ -33,7 +33,7 @@ enableEmoji = true
   description = "Personal website of Dr. Olivia Angelin-Bonnet"
   favicon = "/img/book.png"
   logo = "/img/book.png"
-  mainSections = ["blog", "project", "talk"]
+  mainSections = []
   navallcaps = true
   # show/hide social icons in site header & footer
   # configure social icons and links below in [[params.social]]
