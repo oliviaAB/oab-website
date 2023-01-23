@@ -19,4 +19,4 @@ links:
   url: https://oliviaab.github.io/OAButils/
 ---
 
-More details to come soon.
+Very much in construction, will only update whenever I have the time.
