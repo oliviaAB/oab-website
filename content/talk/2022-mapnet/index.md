@@ -1,6 +1,5 @@
 ---
 title: Investigating genotype-phenotype relationships for tuber bruising in autotetraploid potatoes
-subtitle: Keynote speaker
 excerpt: Presentation of the research I've done during my PhD.
 author: Olivia Angelin-Bonnet, Susan Thomson, Samantha Baldwin, Patrick J. Biggs and Matthieu Vignes
 event: MAPNET 2022

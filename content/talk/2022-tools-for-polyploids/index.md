@@ -3,7 +3,7 @@ title: Investigating genotype-phenotype relationships for tuber bruising in auto
 excerpt: Presentation of the research I've done during my PhD.
 author: Olivia Angelin-Bonnet, Susan Thomson, Patrick J. Biggs, Matthieu Vignes and Samantha Baldwin
 event: Tools for Polyploids Workshop 2022
-event_url: https://www.polyploids.org/
+event_url: https://www.polyploids.org/workshop-2022
 date: "2022-01-14"
 location: Online
 categories:
