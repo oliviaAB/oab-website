@@ -19,7 +19,8 @@ show_post_time: false
 links:
 - icon: play-circle
   icon_pack: fas
-  name: Recording coming soon
+  name: Recording
+  url: https://www.youtube.com/watch?v=FoOEV_bjP0w&t=42s
 ---
 
 ## Abstrat
