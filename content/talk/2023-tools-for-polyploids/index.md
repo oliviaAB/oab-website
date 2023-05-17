@@ -1,7 +1,7 @@
 ---
 title: |
   The hidecan package: visual integration of GWAS and differential expression results
-excerpt: Presentation a R package I developed for visualisation of GWAS and DE results.
+excerpt: Presentation of an R package I developed for visualisation of GWAS and DE results.
 author: Olivia Angelin-Bonnet, Matthieu Vignes, Patrick J. Biggs, Samantha Baldwin and Susan Thomson
 event: Tools for Polyploids Workshop 2023
 event_url: https://www.polyploids.org/workshop-2023

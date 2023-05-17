@@ -1,0 +1,31 @@
+---
+title: "Renaming placeholders in PowerPoint templates from R with officer"
+subtitle: ""
+excerpt: "A little project to modify placeholder names in a PowerPoint template... without opening PowerPoint"
+date: 2022-07-30
+author: "Olivia Angelin-Bonnet"
+draft: true
+images:
+series:
+tags:
+categories:
+layout: single-sidebar
+---
+
+```{r setup, include = FALSE}
+library(officer)
+library(xml2)
+library(tibble)
+library(dplyr)
+library(stringr)
+```
+
+<font size='2'>*Thumbnail image by [Lars Blankers](https://unsplash.com/@lmablankers?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/potatoes?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText).*</font>
+
+## Introduction 
+ 
+I've recently discovered the `officer` package that allows to create a PowerPoint presentation from R. I was particularly interested in the ability to use template slides from an existing `.pptx` document. This is extremely useful if you have a template that you are required to use for work. In my case, there is a template with predefined layouts that I have to use for work. The problem is that a lot of the slides layout have placeholders with identical names, which `officer` cannot handle. In addition, there is a lot of layouts, and most of the layouts are duplicated as only the colour scheme changes. So, if I wanted to use `officer` with this template, I would have to go through each slide layout one by one and rename the placeholders. But knowing that `officer` reads the slide layouts in order to use them when creating a new slide deck, I figured that there must be a way to automatically change the name of the placeholders from within R, without having to do it manually in PowerPoint. It would save me plenty of time since a lot of the layouts were present in several copies.
+
+So here is the code I came up with to rename slide layout placeholders from R using `officer`.
+
+
