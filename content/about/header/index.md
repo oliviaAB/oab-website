@@ -13,6 +13,8 @@ I am French :fr:, currently living in New Zealand. I completed my PhD at Massey 
 
  Here are some of the things and resources I've been interested in lately:
  
+ - [The Good Research Code Handbook](https://goodresearch.dev/index.html) by Patrick Mineault. Even though this is for Python users, it is full of best practices for writing research code that can directly be translated to R.
+ 
  - The amazing [targets](https://books.ropensci.org/targets/) R package, to construct reproducible workflows in R.
  
  - The [Statistical Rethinking 2023](https://github.com/rmcelreath/stat_rethinking_2023) course by Richard McElreath on scientific models, Bayesian analysis and causal inference. 

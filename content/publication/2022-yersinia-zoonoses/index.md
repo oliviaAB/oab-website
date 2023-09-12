@@ -24,7 +24,7 @@ show_publication: true
 
 ## Cite us
 
-> Arden, K., Gedye, K., Angelin‐Bonnet, O., Murphy, E., & Antic, D. (2022). Yersinia enterocolitica in wild and peridomestic rodents within Great Britain, a prevalence study. Zoonoses and Public Health. https://doi.org/10.1111/zph.12943
+> Arden, K., Gedye, K., Angelin‐Bonnet, O., Murphy, E., & Antic, D. (2022). Yersinia enterocolitica in wild and peridomestic rodents within Great Britain, a prevalence study. *Zoonoses and Public Health*. https://doi.org/10.1111/zph.12943
 
 Or with bibtex:
 
