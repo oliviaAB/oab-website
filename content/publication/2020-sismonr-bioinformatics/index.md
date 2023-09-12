@@ -22,6 +22,14 @@ links:
   icon_pack: fas
   name: Documentation
   url: https://oliviaab.github.io/sismonr/
+- icon: laptop
+  icon_pack: fas
+  name: Workshop material
+  url: https://genomicsaotearoa.github.io/Gene_Regulatory_Networks_Simulation_Workshop/
+- icon: youtube
+  icon_pack: fab
+  name: Presentation
+  url: https://www.youtube.com/watch?v=ydeeOlGOC4U&list=PLYc7-GqWDJu2N09Y--9hej5BfFLjzcLHu&index=1&pp=gAQBiAQB
 show_post_time: false
 show_publication: true
 ---
