@@ -28,6 +28,10 @@ links:
   icon_pack: fas
   name: Publication
   url: https://doi.org/10.1093/bioinformatics/btaa002
+- icon: youtube
+  icon_pack: fab
+  name: Presentation
+  url: https://www.youtube.com/watch?v=ydeeOlGOC4U&list=PLYc7-GqWDJu2N09Y--9hej5BfFLjzcLHu&index=1&pp=gAQBiAQB
 ---
 
 `sismonr` is an R package that I developed during my PhD for the simulation of gene expression profiles for in silico regulatory systems. Some innovative features of the model include:
@@ -38,4 +42,4 @@ links:
 
 One originality of this package is that it relies on Julia code "under the hood" to speed up the computations. However, the user does not need to interact with Julia in order to use the package.
 
-The package is publicly available on [GitHub](https://github.com/oliviaAB/sismonr), and has been published in [Bioinformatics](/publication/2020-sismonr-bioinformatics/). In addition, I developed together with [NeSI](https://www.nesi.org.nz/) a [two-day workshop](https://genomicsaotearoa.github.io/Gene_Regulatory_Networks_Simulation_Workshop/) based on `sismonr`. 
+The package is publicly available on [GitHub](https://github.com/oliviaAB/sismonr), and has been published in [Bioinformatics](/publication/2020-sismonr-bioinformatics/). In addition, I developed together with [NeSI](https://www.nesi.org.nz/) a [two-day workshop](https://genomicsaotearoa.github.io/Gene_Regulatory_Networks_Simulation_Workshop/) based on `sismonr`. I also had the chance to give a talk on `sismonr` at one of NESI's webinar, the recording is available on [Youtube](https://www.youtube.com/watch?v=ydeeOlGOC4U&list=PLYc7-GqWDJu2N09Y--9hej5BfFLjzcLHu&index=1&t=1s&pp=gAQBiAQB).
