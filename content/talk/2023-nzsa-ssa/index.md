@@ -16,6 +16,10 @@ layout: single
 show_post_time: false
 
 links:
+- icon: play-circle
+  icon_pack: fas
+  name: Recording
+  url: https://www.youtube.com/watch?v=e5P-OljGjO0
 - icon: paperclip
   icon_pack: fas
   name: Slides

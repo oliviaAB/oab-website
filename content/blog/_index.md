@@ -16,7 +16,7 @@ sidebar:
   author: "Olivia Angelin-Bonnet"
   description: "*Quote that may or may not be attributed to Louis Pasteur,
   who may have used these or similar words...*<br><br>
-  <font size='2'>Photo by [Aaron Burden](https://unsplash.com/@aaronburden?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)</font>"
+  <font size='2'>Photo by [Jan Kahánek](https://unsplash.com/@honza_kahanek?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) on [Unsplash](https://unsplash.com/photos/brown-pencil-on-white-book-page-fVUl6kzIvLg?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)</font>"
   show_author_byline: false
   show_sidebar_adunit: true
   text_link_label: 

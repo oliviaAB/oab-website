@@ -6,4 +6,4 @@ show_title_as_headline: true
 title: Credit
 ---
 
-Notebook icon: <a href="https://www.flaticon.com/free-icons/notebook" title="notebook icons">Notebook icon created by Freepik - Flaticon</a>
+Notebook icon: <a href="https://www.flaticon.com/free-icons/workbook" title="workbook icons">Workbook icons created by Freepik - Flaticon</a>

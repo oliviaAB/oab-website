@@ -17,4 +17,3 @@ I am French :fr:, currently living in New Zealand. I completed my PhD at Massey 
  
  - The amazing [targets](https://books.ropensci.org/targets/) R package, to construct reproducible workflows in R.
  
- - The [Statistical Rethinking 2023](https://github.com/rmcelreath/stat_rethinking_2023) course by Richard McElreath on scientific models, Bayesian analysis and causal inference. 
