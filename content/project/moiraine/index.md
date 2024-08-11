@@ -6,7 +6,7 @@ author: Olivia Angelin-Bonnet
 date: "2024-01-10"
 categories:
 - R-package
-draft: true
+draft: false
 layout: single
 links:
 - icon: github
