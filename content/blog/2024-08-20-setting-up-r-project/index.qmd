@@ -542,7 +542,7 @@ plot_bill_length_depth <- function(df) {
         )
     ) +
     ggplot2::geom_point() +
-    ggplot2::scale_colour_brewer(palette = "Set1") + ## was "Set2" before
+    ggplot2::scale_colour_brewer(palette = "Set1") + # was "Set2" before
     ggplot2::theme_minimal()
 }
 ```
@@ -551,7 +551,7 @@ Once I have done that, I can have a look again at my pipeline with `tar_visnetwo
 
 ![](images/tar_visnetwork_change_step.png)
 
-There are now two colours in the DAG! Now the `plit_bill_length_depth` function node as well as the `bill_scatterplot` target are both denoted as outdated; while the rest of the nodes are still up-to-date. `{targets}` automatically detected that a change has been made to the `plit_bill_length_depth` function and therefore the result that is saved for the `bill_scatterplot` target is not up-to-date with the current version of the code. On the other hand, the data has not changed, and the other plots are not impacted by this change in the code, so there is no need to execute the corresponding targets again as the results are up-to-date with the current version of the code.
+There are now two colours in the DAG! The `plit_bill_length_depth` function node as well as the `bill_scatterplot` target node are both denoted as outdated; while the rest of the nodes are still up-to-date. `{targets}` automatically detected that a change has been made to the `plit_bill_length_depth` function and therefore the result that is saved for the `bill_scatterplot` target is not up-to-date with the current version of the code. On the other hand, the data has not changed, and the other plots are not impacted by this change in the code, so there is no need to execute the corresponding targets again as the results are up-to-date with the current version of the code.
 
 We can execute the pipeline again:
 
@@ -576,9 +576,9 @@ v skipped target flipper_length_plot
 ")
 ```
 
-This time the function will skip the up-to-date targets and re-execute only the `bill_scatterplot` target which was outdated. In this trivial example it doesn't reduce much the running time of the pipeline, but for more complex analyses it allows you to save a lot of time by only running the parts of the pipeline that are outdated.
+This time the function skips the up-to-date targets and re-executes only the `bill_scatterplot` target which was outdated. In this trivial example it doesn't reduce much the running time of the pipeline, but for more complex analyses it allows you to save a lot of time by only running the parts of the pipeline that are outdated.
 
-We can read again the result from the `bill_scatterplot` target:
+We can read again the result from the `bill_scatterplot` target and see how the plot turns out with this new colour palette:
 
 ```{r}
 targets::tar_read(bill_scatterplot)
@@ -588,9 +588,198 @@ targets::tar_read(bill_scatterplot)
 
 ### Change in the data 
 
+Another type of change that `{targets}` can detect is any change that is done to an input file. In order to do so, the path to the file must be stored in a special target, denoted as we saw with the argument `format = "file"`, e.g. in our case:
+
+```{r}
+tar_target(penguins_raw_file, here("data/penguins_raw.csv"), format = "file")
+```
+
+When that is the case, `{targets}` will check whether the content of the file or its time stamp has changed to decide whether the corresponding target is up-to-date. So, let's imagine that I receive the following email:
+
+> *Hi Olivia,*
+>
+> *Oopsie! We realised there was a mistake in the original data file. Here is the updated spreadsheet, could you re-run the analysis with this version?*
+
+When I copy the new version of the spreadsheet in my `data/` folder, the pipeline will look like this:
+
+![](images/tar_visnetwork_change_data.png)
+
+The input csv file is detected as outdated, indicating that I need to re-run the pipeline in order to get up-to-date results.
+
 ### Using `{assertr}` for data checking
 
+There is a common problem however when working on new versions of spreadsheets. It can happen that, when updating the data, the stakeholder modifies some aspect of the spreadsheet on which our code relies: for example the name of a column, the values of a certain column which we are treating as a factor, etc. This means that when we try to execute the pipeline with the new version of the data, it might fail in unexpected ways, sometimes with unhelpful error messages. It might not directly happen when reading the data but later on when we are trying to access the specific column for a plot, etc.
+
+In order to avoid these issues, it is a good ideas to set up some testing of the data when it is read. This way, any unexpected aspect of the data can be caught early. That is exactly what the `{assertr}` package does: it allows us to formally test any assumptions that we might have about the data. Bonus, it works as part of a pipe sequence, which means that it can be seamlessly integrated in our data cleaning function!
+
+In the current state of our code, the function that reads in the data looks like this:
+
+```{r}
+read_data <- function(file) {
+  readr::read_csv(file, show_col_types = FALSE) |> 
+    janitor::clean_names() |> 
+    ## data cleaning code
+}
+```
+
+We can start by checking that all the columns we are using are present in the spreadsheet. For this, we use a combination of the `verify()` and `has_all_names()` functions from `{assertr}`:
+
+```{r}
+read_data <- function(file) {
+  readr::read_csv(file, show_col_types = FALSE) |> 
+    janitor::clean_names() |> 
+    assertr::verify(
+      assertr::has_all_names(
+        "species", "island", "date_egg", "sex",
+        "body_mass_g", "culmen_length_mm",
+        "culmen_depth_mm", "flipper_length_mm"
+      )
+    ) |>
+    ## data cleaning code
+}
+```
+
+If the data contains all expected columns, the function simply returns the data-frame that it tested. Otherwise, we get an error that looks like this:
+
+```{r}
+#| eval: true
+#| echo: false
+
+cat('
+verification [assertr::has_all_names("species", "island", "date_egg", "sex", ] failed! (1 failure) 
+verification [    "body_mass_g", "culmen_length_mm", "culmen_depth_mm", "flipper_length_mm")] failed! (1 failure)
+
+    verb redux_fn
+1 verify       NA
+                                                                                                                                       predicate
+1 assertr::has_all_names("species", "island", "date_egg", "sex", "body_mass_g", "culmen_length_mm", "culmen_depth_mm", "flipper_length_mm")
+  column index value
+1     NA     1    NA
+')
+```
+
+To be fair, the error message is not super clear either, but it clearly states that the verification done with `has_all_names()` has failed. We can then go and check which of the columns is not present in the data.
+
+Another thing we might want to check is the format of a particular column. For example, we expect the body mass to be reported in grams, without decimal places. We can check if that is the case by using a combination of the `assertr()` function from `{assertr}` and the `is_integerish()` function from `rlang` (which checks whether a value is an integer, even if it a numeric value without decimal places):
+
+```{r}
+read_data <- function(file) {
+  readr::read_csv(file, show_col_types = FALSE) |> 
+    janitor::clean_names() |> 
+    assertr::verify(
+      assertr::has_all_names(
+        "species", "island", "date_egg", "sex",
+        "body_mass_g", "culmen_length_mm",
+        "culmen_depth_mm", "flipper_length_mm"
+      )
+    ) |>
+    assertr::assert(rlang::is_integerish, body_mass_g) |>
+    ## data cleaning code
+}
+```
+
+If for some reason one or more values in the `body_mass_g` column does not follow the expected format, the function will return an error that specify which rows in the data-frame violate this assumption, e.g.:
+
+```{r}
+#| eval: true
+#| echo: false
+
+cat("
+Column 'body_mass_g' violates assertion 'rlang::is_integerish' 3 times                                               
+    verb redux_fn            predicate      column index  value
+1 assert       NA rlang::is_integerish body_mass_g    12  32.68
+2 assert       NA rlang::is_integerish body_mass_g   194 345.63
+3 assert       NA rlang::is_integerish body_mass_g   236 3612.1
+")
+```
+
+
+As an aside, the main difference between `verify()` and `assert()` from `{assertr}` is that `verify()` evaluates a logical expression on the entire data-frame (e.g. checking the presence of specific columns), while `assert()` evaluates a function that returns a logical value on specified columns.
+
+A last check that we could do is making sure that the flipper length values are all positive. Again, we use the `verify()` function (because we are testing a logical expression):
+
+```{r}
+read_data <- function(file) {
+  readr::read_csv(file, show_col_types = FALSE) |> 
+    janitor::clean_names() |> 
+    assertr::verify(
+      assertr::has_all_names(
+        "species", "island", "date_egg", "sex",
+        "body_mass_g", "culmen_length_mm",
+        "culmen_depth_mm", "flipper_length_mm"
+      )
+    ) |>
+    assertr::assert(rlang::is_integerish, body_mass_g) |>
+    ## data cleaning code
+    assertr::verify(flipper_length_mm > 0)
+}
+```
+
+Notice that I put this test at the end of my function, specifically after removing the missing values, because the test will fail if there are some `NA`s in the column.
+
+Typically whenever I work with a dataset that I expect to change during the course of the analysis, or when I have assumptions about the data (such as distribution of certain variables, etc), I make sure to explicitely check these assumptions during data import/cleaning with `{assertr}`.
+
+If you want to learn more about checking data, I recommend one of Danielle Navarro's blog post on [Four ways to write assertion checks in R](https://blog.djnavarro.net/posts/2023-08-08_being-assertive/) -- which introduced me to `{assertr}` in the first place.
+
 ### Writing a report with Quarto and `{targets}`
+
+When it comes to writing reports, I like to use [Quarto](https://quarto.org/) (or [RMarkdown](https://rmarkdown.rstudio.com/)) for that - I can format my text in markdown, use code to generate figures and tables rather than copy-pasting (which is both time-consuming and error-prone), and I can use predefined templates to format the output document (for example to generate a Word document with the company style). 
+
+For this project, my report might look something like that (all quarto files are stored in the `reports/` folder):
+
+````{.markdown filename="reports/palmerpenguins_report.qmd"}
+---
+title: "Analysis of penguins measurements from the palmerpenguins dataset"
+author: "Olivia Angelin-Bonnet"
+date: today
+format:
+  docx:
+    number-sections: true
+---
+
+```{{r setup}}
+#| include: false
+
+library(knitr)
+
+opts_chunk$set(echo = FALSE)
+```
+
+This project aims at understanding the differences between the size of three species of penguins (Adelie, Chinstrap and Gentoo) observed in the Palmer Archipelago, Antarctica, using data collected by Dr Kristen Gorman between 2007 and 2009.
+
+## Distribution of body mass and flipper length
+
+@fig-body-mass shows the distribution of body mass (in grams) across the three penguins species. We can see that on average, the Gentoo penguins are the heaviest, with Adelie and Chinstrap penguins more similar in terms of body mass. Within a species, the females are on average lighter than the males.
+
+```{{r fig-body-mass}}
+#| fig-cap: "Distribution of penguin body mass (g) across species and sex."
+
+# code for plot
+```
+
+Similarly, Gentoo penguins have the longest flippers on average (@fig-flipper-length), and Adelie penguins the shortest. Again, females from a species have shorter flippers on average than the males.
+
+```{{r fig-flipper-length}}
+#| fig-cap: "Distribution of penguin flipper length (mm) across species and sex."
+
+# code for plot
+```
+
+
+## Association between bill length and depth
+
+In this dataset, bill measurements refer to measurements of the culmen, which is the upper ridge of the bill. There is a clear relationship between bill length and depth, but it is masked in the dataset by differences between species (@fig-bill-scatterplot), with Gentoo penguins exhibiting longer but shallower bills, and Adelie penguins shorter and deeper bills.
+
+```{{r fig-bill-scatterplot}}
+#| fig-cap: "Scatterplot of penguin bill length and depth."
+
+# code for plot
+```
+````
+
+Which, once knitted, will generate a Word document looking like this:
+
+![](images/word_report.png)
 
 ### How to reproduce the analysis
 
