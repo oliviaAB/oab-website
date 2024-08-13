@@ -18,6 +18,8 @@ execute:
 ---
 
 
+<font size='2'>*Thumbnail image by [shawnanggg](https://unsplash.com/@shawnanggg?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) on [Unsplash](https://unsplash.com/photos/yellow-green-and-red-wooden-frame-r2A6WYI8YIg?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash).*</font>
+
 This is the blog post version of a talk that I gave as part of the [ECSSN and NZSA joint Webinar Series](https://www.statsoc.org.au/event-5815368?CalendarViewType=1&SelectedDate=8/7/2024). The slides are available here.
 
 ## Introduction
@@ -598,7 +600,7 @@ Another type of change that `{targets}` can detect is any change that is done to
 tar_target(penguins_raw_file, here("data/penguins_raw.csv"), format = "file")
 ```
 
-When that is the case, `{targets}` will check whether the content of the file or its time stamp has changed to decide whether the corresponding target is up-to-date. So, let's imagine that I receive the following email:
+When that is the case, `{targets}` will check whether the content of the file or its time stamp have changed to decide whether the corresponding target is up-to-date. So, let's imagine that I receive the following email:
 
 > *Hi Olivia,*
 >
@@ -658,7 +660,7 @@ If the data contains all expected columns, the function simply returns the data-
 
 To be fair, the error message is not super clear either, but it clearly states that the verification done with `has_all_names()` has failed. We can then go and check which of the columns is not present in the data.
 
-Another thing we might want to check is the format of a particular column. For example, we expect the body mass to be reported in grams, without decimal places. We can check if that is the case by using a combination of the `assertr()` function from `{assertr}` and the `is_integerish()` function from `rlang` (which checks whether a value is an integer, even if it a numeric value without decimal places):
+Another thing we might want to check is the format of a particular column. For example, we expect the body mass to be reported in grams, without decimal places. We can check if that is the case by using a combination of the `assertr()` function from `{assertr}` and the `is_integerish()` function from `rlang` (which checks whether a value is an integer, even if it is a numeric value without decimal places):
 
 ``` r
 read_data <- function(file) {
@@ -676,7 +678,7 @@ read_data <- function(file) {
 }
 ```
 
-If for some reason one or more values in the `body_mass_g` column does not follow the expected format, the function will return an error that specify which rows in the data-frame violate this assumption, e.g.:
+If for some reason one or more values in the `body_mass_g` column do not follow the expected format, the function will return an error that specifies which rows in the data-frame violate this assumption, e.g.:
 
 
     Column 'body_mass_g' violates assertion 'rlang::is_integerish' 3 times                                               
@@ -710,11 +712,11 @@ Notice that I put this test at the end of my function, specifically after removi
 
 Typically whenever I work with a dataset that I expect to change during the course of the analysis, or when I have assumptions about the data (such as distribution of certain variables, etc), I make sure to explicitely check these assumptions during data import/cleaning with `{assertr}`.
 
-If you want to learn more about checking data, I recommend one of Danielle Navarro's blog post on [Four ways to write assertion checks in R](https://blog.djnavarro.net/posts/2023-08-08_being-assertive/) -- which introduced me to `{assertr}` in the first place.
+If you want to learn more about checking data, I recommend Danielle Navarro's blog post on [Four ways to write assertion checks in R](https://blog.djnavarro.net/posts/2023-08-08_being-assertive/) -- which introduced me to `{assertr}` in the first place.
 
 ### Writing a report with Quarto and `{targets}`
 
-When it comes to writing reports, I like to use [Quarto](https://quarto.org/) (or [RMarkdown](https://rmarkdown.rstudio.com/)) for that - I can format my text in markdown, use code to generate figures and tables rather than copy-pasting (which is both time-consuming and error-prone), and I can use predefined templates to format the output document (for example to generate a Word document with the company style).
+When it comes to writing reports, I like to use [Quarto](https://quarto.org/) (or [RMarkdown](https://rmarkdown.rstudio.com/)) - I can format my text in markdown, use code to generate figures and tables rather than copy-pasting (which is both time-consuming and error-prone), and I can use predefined templates to format the output document (for example to generate a Word document with the company style).
 
 For this project, my report might look something like that (all quarto files are stored in the `reports/` folder):
 
@@ -774,9 +776,143 @@ Which, once knitted, will generate a Word document looking like this:
 
 ![](images/word_report.png)
 
+Using Quarto alongside `{targets}` is very convenient, for two main reasons:
+
+-   we can read the results of a targets pipeline inside the report -- this means that there are no computations to run when knitting the report (only reading from the pipeline), so the rendering will be very fast;
+
+-   we can add the report knitting as a step in the pipeline, and `{targets}` will automagically recognise which targets the report depends on -- this ensures that the report is always up-to-date with the rest of the analysis.
+
+Do do this, we start by making two small changes in the Quarto document. First, we will make sure that the report "sees" the project root directory when rendering. This is to ensure that it has access to the `_targets.yaml` file as well as the `{targets}` store. This is done via the `opts_knit$set()` function from `knitr`, which we call in the setup chunk, and the `here()` function from `{here}` which returns the project root directory:
+
+**reports/palmerpenguins_report.qmd**
+
+```` markdown
+---
+title: "Analysis of penguins measurements from the palmerpenguins dataset"
+author: "Olivia Angelin-Bonnet"
+date: today
+format:
+  docx:
+    number-sections: true
+---
+
+```{r setup}
+#| include: false
+
+library(knitr)
+library(here)
+
+opts_chunk$set(echo = FALSE)
+opts_knit$set(root.dir = here())
+```
+
+This project aims at understanding...
+````
+
+Then, we simply have to use `tar_read()` to read in any result from the pipeline to display in the report! For example, to show the distribution of body mass:
+
+**reports/palmerpenguins_report.qmd**
+
+```` markdown
+```{r setup}
+#| include: false
+
+library(knitr)
+library(here)
+library(targets)
+
+opts_chunk$set(echo = FALSE)
+opts_knit$set(root.dir = here())
+```
+
+[...]
+
+## Distribution of body mass and flipper length
+
+@fig-body-mass shows that...
+
+```{r fig-body-mass}
+#| fig-cap: "Distribution of penguin body mass (g) across species and sex."
+
+tar_read(body_mass_plot)
+```
+````
+
+Now we can add the report as a step in our pipeline. To do so, we need to install the `{quarto}` and the `{tarchetypes}` packages first. Then, we use the `tar_quarto()` function from `{tarchetypes}` to include the report in the pipeline, as follows:
+
+**analysis/\_targets.R**
+
+``` r
+library(targets)
+library(tarchetypes)
+library(here)
+
+source(here("R/helper_functions.R"))
+
+list(
+  tar_target(penguins_raw_file, here("data/penguins_raw.csv"), format = "file"),
+  
+  tar_target(penguins_df, read_data(penguins_raw_file)),
+
+  tar_target(body_mass_plot, violin_plot(penguins_df, body_mass_g)),
+
+  tar_target(flipper_length_plot, violin_plot(penguins_df, flipper_length_mm)),
+
+  tar_target(bill_scatterplot, plot_bill_length_depth(penguins_df)),
+  
+  tar_quarto(report, here("reports/palmerpenguins_report.qmd"))
+)
+```
+
+As with `tar_target()`, the first argument is the name of the target. The second argument is the path to the Quarto document. When we visualise our pipeline with `tar_visnetwork()` again, this is what we see now:
+
+![](images/tar_visnetwork_quarto.png)
+
+Any target that is read using `tar_read()` or `tar_load()` in the report will be linked to the `report` target, which means that any time one changes, the report will be noted as outdated and will have to be run again. We can knit it now by running `tar_make()`.
+
 ### How to reproduce the analysis
 
+One of the big advantage of using `{targets}` is that, when it comes to executing the analysis pipeline, there is only one thing to do: run `tar_make()`. This will handle everything, including generating the report. Anyone who wants to reproduce the analysis (including future you) doesn't have to figure out which script to run or in which order.
+
+So we can go back to the README file, and add this information in the "How to reproduce the analysis" section:
+
+**README.md**
+
+```` markdown
+## How to reproduce the analysis
+
+```{r}
+# Install the necessary packages
+renv::restore()
+
+# Run the analysis pipeline
+targets::tar_make()
+```
+````
+
 ### Conclusion
+
+I hope this (long) walk-through of how I set up my R projects will be useful -- maybe not all of it, but that you have at least found one or two interesting tips and tricks that you can implement in your own work. It might seem like a lot of work for such a trivial example; and of course the effort that you put into making the project tidy and reproducible will depend on the size of the project, the context, the pressure that you are under to deliver results, etc. But I found that even projects that seemed simple and straightforward at the beginning often turn into something bigger, and become more difficult to manage, so it pays to keep things tidy from the beginning.
+
+I have discussed a lot of different practices and packages; and it might seem overwhelming. But I definitely did not come up with this set-up at once! It is the culmination of many years of playing with new packages, learning and implementing one new trick at a time; and will most likely evolve in the future. So if you want to give it a go, start with whatever piece makes sense for you, and build gradually from here. Ultimately, following exactly the advice shown here is not what this post is for (if you prefer to keep your analysis scripts in the `R/` folder, you do you!); rather, it is to encourage you to follow a system that suits you, is consistent across your projects, and makes things easier for the next users. This system is here to improve the reproducibility of your project and safeguard you against mistakes (such as using an older version of a plot in the report, or forgetting to update part of the analysis when the data changes).
+
+### Further reading
+
+If you found this post interesting, and want to learn more about this topic, here are a couple of suggestions for further reading/watching (in addition to the links I provided throughout the post):
+
+-   The recording of my previous talk on [software engineering best practices for statisticians](https://www.youtube.com/watch?v=e5P-OljGjO0) (or the [slides](https://nzsa-ssa-seminar-2023-slides.netlify.app/#/title-slide))
+
+-   Bruno Rodrigues' book on [Building reproducible analytical pipelines with R](https://raps-with-r.dev/)
+
+-   Patrick Mineault's book on [The Good Research Code Handbook]() (even if it is in Python :grimacing:)
+
+-   [An R reproducibility toolkit for the practical researcher](https://reproducibility.rocks/) course by Elio Campitelli and Paola Corrales
+
+-   Wilson et al. (2017) Good enough practices in scientific computing. PLoS Comput Biol <https://doi.org/10.1371/journal.pcbi.1005510>
+
+-   The Carpentries Incubator's [Introduction to targets](https://carpentries-incubator.github.io/targets-workshop/index.html) workshop
+
+Happy coding!
 
 [^1]: While the question of whether the data folder should be included in the GitHub repository is outside the scope of this post, it is an important question to ask yourself when setting up a new project. I typically exclude the entire `data/` folder from GitHub.
 
