@@ -99,7 +99,7 @@ The set-up is extremely simple -- it is simply a matter of running the `init()` 
 
 -   it creates a `renv.lock` file, which will be where all the packages dependencies of the project will be recorded
 
--   it creates an `renv/` folder, inside which the packages that are used in the project will be installed. This way, you can install any version of any package that you want, without affecting the other projects on your computer.
+-   it creates a `renv/` folder, inside which the packages that are used in the project will be installed. This way, you can install any version of any package that you want, without affecting the other projects on your computer.
 
 The `renv.lock` file will be tracked on GitHub, as it is the recipe that allows others to reproduce the computational environment that I am using for the project. The `renv/` folder on the contrary comes with its own `.gitignore` file, as we don't want our package library to end up on GitHub.
 
@@ -154,17 +154,17 @@ Once this is done, and I've copied a version of the palmerpenguins dataset in th
 
 A key aspect of making our work reproducible is to have sufficient documentation. A part of this is having a good README, which allows users discovering your code in the future to have a good overview of the project. As with the directory structure, I like to follow a consistent format for my README files. In particular, I make sure to record the following information:
 
--   a brief **description of the project**: context, overall aim, some key information about the experiment and the analyses intended/performed.
+-   a brief **description of the project**: context, overall aim, some key information about the experiment and the analyses intended/performed
 
--   a list of **key contributors** and their roles, as bullet points.
+-   a list of **key contributors** and their roles, as bullet points
 
--   information about the **input data** (where it is stored), who provided it, what it contains.
+-   information about the **input data** (where it is stored), who provided it, what it contains
 
--   what **analyses** were performed, and which files were generated as a result (e.g. cleaned version of the data).
+-   what **analyses** were performed, and which files were generated as a result (e.g. cleaned version of the data)
 
--   a list of the **key folders and files**.
+-   a list of the **key folders and files**
 
--   which sets of commands to run if you want to **reproduce the analysis**.
+-   which sets of commands to run if you want to **reproduce the analysis**
 
 For example, the README file for this project will look something like:
 
@@ -902,13 +902,13 @@ If you found this post interesting, and want to learn more about this topic, her
 
 -   The recording of my previous talk on [software engineering best practices for statisticians](https://www.youtube.com/watch?v=e5P-OljGjO0) (or the [slides](https://nzsa-ssa-seminar-2023-slides.netlify.app/#/title-slide))
 
--   Bruno Rodrigues' book on [Building reproducible analytical pipelines with R](https://raps-with-r.dev/)
+-   Bruno Rodrigues' book, [Building reproducible analytical pipelines with R](https://raps-with-r.dev/)
 
--   Patrick Mineault's book on [The Good Research Code Handbook]() (even if it is in Python :grimacing:)
+-   Patrick Mineault's book, [The Good Research Code Handbook]() (even if it is in Python :grimacing:)
 
 -   [An R reproducibility toolkit for the practical researcher](https://reproducibility.rocks/) course by Elio Campitelli and Paola Corrales
 
--   Wilson et al. (2017) Good enough practices in scientific computing. PLoS Comput Biol <https://doi.org/10.1371/journal.pcbi.1005510>
+-   Wilson et al. 2017 Good enough practices in scientific computing. PLoS Comput Biol <https://doi.org/10.1371/journal.pcbi.1005510>
 
 -   The Carpentries Incubator's [Introduction to targets](https://carpentries-incubator.github.io/targets-workshop/index.html) workshop
 
