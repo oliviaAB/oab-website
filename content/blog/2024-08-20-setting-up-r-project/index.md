@@ -6,7 +6,7 @@ excerpt: >-
   reusability.
 date: 2024-08-20T00:00:00.000Z
 author: Olivia Angelin-Bonnet
-draft: true
+draft: false
 images: null
 series: null
 categories: null
@@ -20,7 +20,7 @@ execute:
 
 <font size='2'>*Thumbnail image by [shawnanggg](https://unsplash.com/@shawnanggg?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) on [Unsplash](https://unsplash.com/photos/yellow-green-and-red-wooden-frame-r2A6WYI8YIg?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash).*</font>
 
-This is the blog post version of a talk that I gave as part of the [ECSSN and NZSA joint Webinar Series](https://www.statsoc.org.au/event-5815368?CalendarViewType=1&SelectedDate=8/7/2024). The slides are available here.
+This is the blog post version of a talk that I gave as part of the [ECSSN and NZSA joint Webinar Series](https://www.statsoc.org.au/event-5815368). The slides are available [here](https://nzsa-ecssn-2024-seminar-slides.netlify.app/).
 
 ## Introduction
 
@@ -67,7 +67,7 @@ I like to use the `create_from_github()` function from the `{usethis}` package. 
 
 -   it clones the repository to a directory of my choice (specified through the `destdir` argument)
 
--   it turns the cloned repository into an Rstudio project (by adding a `.Rproj` file in the root directory)
+-   it turns the cloned repository into an RStudio project (by adding a `.Rproj` file in the root directory)
 
 -   it creates/updates the `.gitignore` file to ignore some files
 
@@ -539,7 +539,7 @@ For example, imagine that after sending the plots that I generated to the releva
 
 > *Hi Olivia,*
 >
-> *Great work! Just a minor comment, could you change the colours in the bill length/depth scatter-plot? It's hard to see the difference between the islands.*
+> *Great work! Just a minor comment, could you change the colours in the bill length/depth scatter-plot? It's hard to see the difference between the species.*
 
 This is easy to fix: I can go in the `R/helper_functions.R` file and change the colour palette that I use to create the plot in the relevant function. The new plotting function will be:
 
