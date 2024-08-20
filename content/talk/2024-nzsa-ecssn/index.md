@@ -32,7 +32,7 @@ links:
 - icon: newspaper
   icon_pack: fas
   name: Blog post
-  url: https://www.youtube.com/watch?v=e5P-OljGjO0
+  url: https://olivia-angelin-bonnet.netlify.app/blog/2024-08-20-setting-up-r-project/
 ---
 
 ## Abstrat
