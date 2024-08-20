@@ -323,7 +323,7 @@ read_data <- function(file) {
 
 The code is the same as in my script, except I replaced the file path by the `file` argument, which will be passed to the function. Another thing that has changed is that I have explicitly specified the package from which each function comes from, using the `package::function()` notation. This is a habit I took when I started writing R packages, but I think it is very useful whenever you start writing your own functions (regardless of whether they will go in a package), as it makes it easier to differentiate your own functions from those imported from another package. 
 
-Of course, it is good practice to document the function that we just created. Again, as a habit I developed when writing R packages, I like to use `{roxygen}`'s style comments, which in this case would look like that:
+Of course, it is good practice to document the function that we just created. Again, as a habit I developed when writing R packages, I like to use `{roxygen2}`'s style comments, which in this case would look like that:
 
 ```{r}
 #' Read and clean data
@@ -890,13 +890,13 @@ targets::tar_make()
 ```
 ````
 
-### Conclusion
+## Conclusion
 
 I hope this (long) walk-through of how I set up my R projects will be useful -- maybe not all of it, but that you have at least found one or two interesting tips and tricks that you can implement in your own work. It might seem like a lot of work for such a trivial example; and of course the effort that you put into making the project tidy and reproducible will depend on the size of the project, the context, the pressure that you are under to deliver results, etc. But I found that even projects that seemed simple and straightforward at the beginning often turn into something bigger, and become more difficult to manage, so it pays to keep things tidy from the beginning. 
 
 I have discussed a lot of different practices and packages; and it might seem overwhelming. But I definitely did not come up with this set-up at once! It is the culmination of many years of playing with new packages, learning and implementing one new trick at a time; and will most likely evolve in the future. So if you want to give it a go, start with whatever piece makes sense for you, and build gradually from here. Ultimately, following exactly the advice shown here is not what this post is for (if you prefer to keep your analysis scripts in the `R/` folder, you do you!); rather, it is to encourage you to follow a system that suits you, is consistent across your projects, and makes things easier for the next users. This system is here to improve the reproducibility of your project and safeguard you against mistakes (such as using an older version of a plot in the report, or forgetting to update part of the analysis when the data changes).
 
-### Further reading
+## Further reading
 
 If you found this post interesting, and want to learn more about this topic, here are a couple of suggestions for further reading/watching (in addition to the links I provided throughout the post):
 
@@ -913,3 +913,50 @@ If you found this post interesting, and want to learn more about this topic, her
 - The Carpentries Incubator's [Introduction to targets](https://carpentries-incubator.github.io/targets-workshop/index.html) workshop
 
 Happy coding!
+
+
+## Reading list
+
+Here is the list of all of the reference material I mentioned throughout the talk/post:
+
+
+- Learn more about using GitHub: [Happy Git and GitHub for the useR](https://happygitwithr.com/usage-intro)
+
+- Sorting out your git credentials: 
+  - the [`{usethis}` git credentials vignette](https://usethis.r-lib.org/articles/git-credentials.html)
+  
+  - [Danielle Navarro's blog post](https://blog.djnavarro.net/posts/2021-08-08_git-credential-helpers/)
+
+- Organising your R project folders: [Marwick et al. (2017)](https://doi.org/10.1080/00031305.2017.1375986) "Packaging Data Analytical Work Reproducibly Using R (and Friends)" (and the associated [`{rrtools}`](https://github.com/benmarwick/rrtools) package)s
+
+- Learning about the `{targets}` package: 
+  - the [`{targets}` manual](https://books.ropensci.org/targets/)
+  
+  - the Carpentries Incubator's [Introduction to targets](https://carpentries-incubator.github.io/targets-workshop/index.html) workshop
+
+- Formal tests for data checking: Danielle Navarro's blog post on [Four ways to write assertion checks in R](https://blog.djnavarro.net/posts/2023-08-08_being-assertive/)
+
+- General reading about organising R projects in a reproducible way:
+  - the recording of my previous talk on [software engineering best practices for statisticians](https://www.youtube.com/watch?v=e5P-OljGjO0) (or the [slides](https://nzsa-ssa-seminar-2023-slides.netlify.app/#/title-slide))
+
+  - Bruno Rodrigues' book, [Building reproducible analytical pipelines with R](https://raps-with-r.dev/)
+
+  - Patrick Mineault's book, [The Good Research Code Handbook]()
+
+  - [An R reproducibility toolkit for the practical researcher](https://reproducibility.rocks/) course by Elio Campitelli and Paola Corrales
+
+  - Wilson et al. 2017 Good enough practices in scientific computing. PLoS Comput Biol <https://doi.org/10.1371/journal.pcbi.1005510>
+
+- Packages mentioned:
+  - [`{palmerpenguins}`](https://allisonhorst.github.io/palmerpenguins/): example dataset about penguins measurements
+  - [`{usethis`}](https://usethis.r-lib.org/reference/create_from_github.html): for its function `create_from_github()` to clone GitHub repositories directly from R
+  - [`{renv}`](https://rstudio.github.io/renv/): for creating reproducible environments for R projects
+  - [`{here}`](https://here.r-lib.org/): for using paths within RStudio projects
+  - [`{targets}`](https://docs.ropensci.org/targets/): to create analysis pipelines
+  - [`{roxygen2}`](https://roxygen2.r-lib.org/): for documenting functions
+  - [`{assertr}`](https://docs.ropensci.org/assertr/): for testing assumptions about data-frames
+  - [`{rlang}`](https://rlang.r-lib.org/reference/is_integerish.html): specifically for its `is_integerish()` function to check whether a vector is integer-like
+  - [`{tarchetypes}`](https://docs.ropensci.org/tarchetypes/): which has functionalities to extend  the use of `{targets}`, in particular to include the rendering of quarto reports within a `{targets}` pipeline
+  - [`{knitr}`](https://bookdown.org/yihui/rmarkdown-cookbook/working-directory.html) and specifically the function `opts_knit$set()` to specify the directory that a Quarto document should see when being knitted
+  - [`{quarto}`](https://quarto-dev.github.io/quarto-r/): needs to be installed to render Quarto reports from within `{targets}` pipelines
+  
