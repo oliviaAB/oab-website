@@ -20,7 +20,7 @@ execute:
 
 <font size='2'>*Thumbnail image by [shawnanggg](https://unsplash.com/@shawnanggg?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) on [Unsplash](https://unsplash.com/photos/yellow-green-and-red-wooden-frame-r2A6WYI8YIg?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash).*</font>
 
-This is the blog post version of a talk that I gave as part of the [ECSSN and NZSA joint Webinar Series](https://www.statsoc.org.au/event-5815368). The slides are available [here](https://nzsa-ecssn-2024-seminar-slides.netlify.app/).
+This is the blog post version of a talk that I gave as part of the [ECSSN and NZSA joint Webinar Series](https://www.statsoc.org.au/event-5815368). The slides are available [here](https://nzsa-ecssn-2024-seminar-slides.netlify.app/) and the recording [here](https://www.youtube.com/watch?v=DTpcGgdL-cc).
 
 ## Introduction
 
