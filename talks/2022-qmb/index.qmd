@@ -1,0 +1,15 @@
+---
+title: "From Genotype to Phenotype: Reconstructing Causal Multi-Omics Networks in the Autotetraploid Potato"
+subtitle: "Queenstown Research Week 2022 | Queenstown, New Zealand"
+description: "Presentation of the research I've done during my PhD."
+author: "Olivia Angelin-Bonnet, Susan Thomson, Samantha Baldwin, Patrick J. Biggs and Matthieu Vignes"
+date: "2022-08-31"
+categories: [conference, tuber-bruising]
+image: featured.jpg
+---
+
+## Abstract
+
+Understanding the biological mechanisms by which variations at the DNA level impact an organism's phenotype, through the actions of complex molecular networks, is an important topic in biology. Such knowledge would lead to exciting advances in numerous fields, from plant and animal breeding to medicine. Importantly, it would permit an improvement of models for phenotype prediction from omics data. In order to bridge genotype and phenotype, statistical methods must be leveraged to extract information from multi-omics datasets. In particular, methods that can reconstruct regulatory networks spanning the different molecular layers (genome, transcriptome, proteome, metabolome) are needed.
+
+In this talk, I present how I leveraged genomics, transcriptomics, metabolomics and phenotypic data to reconstruct a causal multi-omics network for tuber bruising in the autotetraploid potato. Combining traditional single-omics analyses such as genome-wide association study and differential analysis with the multi-omics integration package mixOmics, I selected, across the different omics datasets, features involved in shaping the phenotype of interest. I then applied causal inference methods to discover causal relationships between the selected features. The reconstructed causal multi-omics network can be used to understand the mechanisms and pathways through which genetic variants impact tuber bruising, and can help develop a prediction model for tuber bruising from omics measurements. This talk will also highlight some limitations that need to be addressed when integrating multi-omics datasets.

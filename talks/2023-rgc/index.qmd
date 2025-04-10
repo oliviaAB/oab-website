@@ -1,0 +1,15 @@
+---
+title: "A testing framework for multi-omics integration"
+subtitle: "The 11th International Rosaceae Genomics Conference | Nelson, New Zealand"
+description: "Presentation a framework for evaluating multi-omics integration methods."
+author: "Olivia Angelin-Bonnet, Lindy Guo and Susan Thomson"
+date: "2023-03-15"
+categories: [conference, multi-omics]
+image: featured.png
+---
+
+## Abstract
+
+In the last decades, the explosion of new technologies measuring cell contents or states across different 'omics layers (e.g. genomics, transcriptomics, metabolomics) and the reduction in processing costs have enabled a shift towards a holistic approach to the study of biological organisms. In particular, the availability of multi-omics datasets, where measurement from several 'omics layers are obtained for the same set of samples, is becoming more common. In response, an increasing number of statistical tools aiming at integrating these datasets are been developed. However, multi-omics data integration is still a field under active study, and there is little consensus regarding appropriate methods to use and best practices to follow. Indeed, existing tools have different paradigms, in terms of e.g., their underlying statistical assumptions, the number of samples or features that can be integrated and the presence of missing values. In addition to the variety of integration tools available themselves, the pre-processing of multi-omics data in preparation for their integration also requires careful design.
+
+We will discuss our ongoing effort to construct a testing framework for multi-omics data integration. The framework includes different options for data pre-processing, facilitates the use of several integration tools, and provides helpful visualisations to assess and interpret the results from each tool. In particular, we focus on the need for reproducibility and use of metadata. The aim of this testing framework is to systematically evaluate and compare existing tools for multi-omics data integration, to inform future integration analyses and promote best practices.

@@ -3,7 +3,7 @@ title: "Web scrapping for potato pedigree"
 description: "A little project to reconstruct and plot potato varieties' pedigree from the Potato Pedigree Database"
 author: "Olivia Angelin-Bonnet"
 date: "2022-06-10"
-categories: [code, web-scrapping]
+categories: [r-code, web-scrapping]
 image: "potatoes.jpg"
 ---
 

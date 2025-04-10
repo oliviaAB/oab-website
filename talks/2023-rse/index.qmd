@@ -1,0 +1,17 @@
+---
+title: "Mastering Essential Skills: Incorporating Software Development Principles in Statistical Practice"
+subtitle: "New Zealand Research Software Engineering Conference 2023 | online"
+description: "Talk about the software engineering skills that statisticians should learn about."
+author: "Olivia Angelin-Bonnet"
+date: "2023-09-18"
+categories: [conference, project-management, slides]
+image: featured.png
+---
+
+## Abstract
+
+Modern statistician and data science roles involve working with big and messy datasets, developing complex analysis pipelines, communicating results through reports and presentations, and implementing software or packages for disseminating our work. A number of principles and tools from the software development community, such as data and code versioning, unit testing, or workflow management systems, can support statisticians through these activities, to ensure their work is sustainable and reproducible. However, these skills are often left out of statistical degrees. In this talk, I will discuss how these principles can be applied to a statistician role, and how mastering them is rapidly becoming a core competency for statistical scientists.
+
+## Slides
+
+[Slides](https://nz-rse-2023-slides.netlify.app/#/title-slide) available.

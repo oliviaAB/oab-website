@@ -3,7 +3,7 @@ title: "A love letter to the targets package"
 description: "How the targets package changed the way I write R code and run analyses"
 author: "Olivia Angelin-Bonnet"
 date: "2023-02-04"
-categories: [organisation, targets]
+categories: [project-management, targets]
 image: "meme_brains_targets_cropped.png"
 draft: false
 ---

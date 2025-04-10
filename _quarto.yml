@@ -1,5 +1,8 @@
 project:
   type: website
+  preview:
+    port: 1234
+    browser: true
 
 website:
   title: "Olivia Angelin-Bonnet"
@@ -7,6 +10,7 @@ website:
     left:
       - href: index.qmd
         text: Home
+      - talks.qmd
       - projects.qmd
       - blog.qmd
 
