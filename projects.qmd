@@ -7,6 +7,7 @@ listing:
   categories: true
   sort-ui: false
   filter-ui: false
+  #image-height: "8cm"
 page-layout: full
 title-block-banner: false
 ---
