@@ -10,6 +10,7 @@ website:
     left:
       - href: index.qmd
         text: Home
+      - publications.qmd
       - talks.qmd
       - projects.qmd
       - blog.qmd
@@ -19,5 +20,4 @@ format:
     theme: [cosmo, styles.scss]
     toc: true
 
-editor: visual
 
