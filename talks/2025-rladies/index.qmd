@@ -1,0 +1,19 @@
+---
+title: "Reproducible analysis pipelines with {targets}"
+subtitle: "Rladies Sydney | online"
+description: "An introduction to the {targets} package."
+author: "Olivia Angelin-Bonnet"
+date: "2025-04-07"
+categories: [targets, recording, slides]
+image: rladies_recording_thumbnail.jpg
+---
+
+## Abstract
+
+Data science projects typically consist of complex, multi-step analyses, which leads to the development of multiple interdependent scripts, often involving intensive computations, and requiring manual execution. Ensuring reproducibility is crucial, not only for transparency and collaboration, but also for adapting to changes in input data and stakeholder feedback. In this talk, I will show how to use the targets R package to turn analysis scripts into reproducible pipelines. By automatically tracking dependencies between the analysis steps, caching intermediate results, and detecting changes in data or code, targets streamlines code execution and ensures consistency between inputs, computations, and outputs. Attendees will learn how to integrate targets into their projects to improve the efficiency, reproducibility, and maintainability of their code.
+
+## Recording and slides
+
+{{< video https://youtu.be/bMzM8e7E_K0 >}}
+
+[Slides](https://rladies-2025-targets-slides.netlify.app/#/title-slide) available.

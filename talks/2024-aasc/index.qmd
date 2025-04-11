@@ -1,0 +1,23 @@
+---
+title: "Integrating and visualising multi-omics data with the moiraine R package"
+subtitle: "Australasian Applied Statistics Conference 2024 | Rottnest Island, Australia"
+description: "Presentation of the moiraine R package for comparing multi-omics integration tools."
+author: "Olivia Angelin-Bonnet"
+date: "2024-09-03"
+categories: [conference, moiraine, slides]
+image: aasc_quokka.png
+---
+
+## Abstract
+
+The integrated analysis of multi-omics datasets is a challenging problem, owing to their complexity and high dimensionality. Numerous integration tools have been developed, but they are heterogeneous in terms of their underlying statistical methodology, input data requirements, and visual representation of the results generated.
+
+I present the moiraine R package, which provides a framework to consistently integrate and visualise multi-omics datasets. In particular, moiraine enables the construction of insightful and context-rich visualisations that facilitate the interpretation of integration results by domain experts. With moiraine, it is also possible to compare the results obtained with different integration tools, providing confidence into the biological relevance of the results obtained.
+
+## Slides
+
+[Slides](https://aasc2024conf.netlify.app/files/sildes/sess1.3/ange.pdf) available.
+
+## Event information
+
+See the event information on the [conference website](https://aasc2024conf.netlify.app/base).

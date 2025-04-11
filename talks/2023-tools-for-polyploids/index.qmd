@@ -16,8 +16,6 @@ Genome-wide association studies (GWAS) are often conducted with the goal of ulti
 
 {{< video https://www.youtube.com/watch?v=FoOEV_bjP0w&t=42s >}}
 
-[Slides]() available.
-
 ## Event information
 
 See the event information on the [Tools for Polyploids website](https://www.polyploids.org/workshop-2023).

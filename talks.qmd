@@ -9,6 +9,8 @@ listing:
   filter-ui: false
   image-align: left
   fields: [title, subtitle, description, date, image, categories]
+  field-display-names: 
+    date: "Date"
 page-layout: full
 title-block-banner: false
 ---
