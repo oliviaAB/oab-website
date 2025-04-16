@@ -7,11 +7,8 @@ date: "2018-12-03"
 categories: [r-package]
 ---
 
-<span class="listing-btn-group">
-<a href="https://ieeexplore.ieee.org/abstract/document/8621131" class="btn" role="button">{{< fas paperclip >}} Publication</a> 
-<a href="https://github.com/oliviaAB/sismonr" class="btn" role="button">{{< fab github >}} Package repository</a> 
-<a href="https://oliviaab.github.io/sismonr/" class="btn" role="button">{{< fas book >}} Package documentation</a>
-</span>
+- DOI: <https://doi.org/10.1109/BIBM.2018.8621131>
+- GitHub repository: <https://github.com/oliviaAB/sismonr>
 
 ## Abstract
 
@@ -23,7 +20,7 @@ Cellular regulatory networks can be deciphered from multi-omics data using netwo
 
 Or with bibtex:
 
-```{txt}         
+```
 @inproceedings{angelin2018sismonr,
     title        = {The sismonr Package: Simulation of In Silico Multi-Omic Networks in R},
     author       = {Angelin-Bonnet, Olivia and Biggs, Patrick J and Vignes, Matthieu},

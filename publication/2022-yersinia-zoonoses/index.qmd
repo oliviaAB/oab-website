@@ -1,22 +1,13 @@
 ---
 title: "Yersinia enterocolitica in wild and peridomestic rodents within Great Britain, a prevalence study"
+subtitle: "Zoonoses and Public Health"
+description: "Study of *Yersinia enterocolitica* prevalence in wildlife species in Great Britain."
 author: "Kurt Arden, Kristene Gedye, Olivia Angelin-Bonnet, Ellen Murphy, Dragan Antic"
-publication: "Zoonoses and Public Health"
-publishdate: "2022-03-27"
-excerpt: "Study of *Yersinia enterocolitica* prevalence in wildlife species in Great Britain."
-tags:
-- collaboration
-draft: false
-featured: true
-layout: single
-links:
-- icon: paperclip
-  icon_pack: fas
-  name: Publication
-  url: https://onlinelibrary.wiley.com/doi/10.1111/zph.12943
-show_post_time: false
-show_publication: true
+date: "2022-03-27"
+categories: [collaboration]
 ---
+
+- DOI: <https://doi.org/10.1111/zph.12943>
 
 ## Abstract
 

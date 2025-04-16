@@ -1,27 +1,14 @@
 ---
 title: "Investigating the genetic components of tuber bruising in a breeding population of tetraploid potatoes"
+subtitle: "BMC Plant Biology"
+description: "GWAS and differential expression study to explore mechanisms of tuber bruising in the tetraploid potato."
 author: "Olivia Angelin-Bonnet, Susan Thomson, Matthieu Vignes, Patrick J. Biggs, Katrina Monaghan, Rebecca Bloomer, Kathryn Wright, Samantha Baldwin"
-publication: "BMC Plant Biology"
-publishdate: "2023-05-05"
-excerpt: "GWAS and differential expression study to explore mechanisms of tuber bruising in the tetraploid potato."
-tags:
-- potato
-- omics
-draft: false
-featured: true
-layout: single
-links:
-- icon: paperclip
-  icon_pack: fas
-  name: Publication
-  url: https://doi.org/10.1186/s12870-023-04255-2
-- icon: github
-  icon_pack: fab
-  name: GitHub repository
-  url: https://github.com/PlantandFoodResearch/Tuber_bruising
-show_post_time: false
-show_publication: true
+date: "2023-05-05"
+categories: [tuber-bruising, multi-omics]
 ---
+
+- DOI: <https://doi.org/10.1186/s12870-023-04255-2>
+- GitHub repository: <https://github.com/PlantandFoodResearch/Tuber_bruising>
 
 ## Abstract
 
@@ -52,6 +39,4 @@ Or with bibtex:
 	pages        = 238,
 	doi          = {10.1186/s12870-023-04255-2}
 }
-
-
 ```

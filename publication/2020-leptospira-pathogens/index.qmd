@@ -1,22 +1,13 @@
 ---
 title: "Diverse Epidemiology of Leptospira Serovars Notified in New Zealand, 1999–2017"
+subtitle: "Pathogens"
+description: "Poster presentation of the sismonr R package for simulation of gene regulatory networks with transcription and post-transcriptional regulation."
 author: "Shahista Nisa, David A. Wilkinson, Olivia Angelin-Bonnet, Shevaun Paine, Karen Cullen, Jackie Wright, Michael G. Baker, Jackie Benschop"
-publication: "Pathogens"
-publishdate: "2020-10-14"
-excerpt: "Exploration of the spatial and temporal trends of *Lepotspira* serovars in New Zealand from 1999 to 2017."
-tags:
-- collaboration
-draft: false
-featured: true
-layout: single
-links:
-- icon: paperclip
-  icon_pack: fas
-  name: Publication
-  url: https://www.mdpi.com/2076-0817/9/10/841
-show_post_time: false
-show_publication: true
+date: "2020-10-14"
+categories: [collaboration]
 ---
+
+- DOI: <https://doi.org/10.3390/pathogens9100841>
 
 ## Abstract
 
