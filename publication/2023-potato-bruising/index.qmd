@@ -1,0 +1,42 @@
+---
+title: "Investigating the genetic components of tuber bruising in a breeding population of tetraploid potatoes"
+subtitle: "BMC Plant Biology"
+description: "GWAS and differential expression study to explore mechanisms of tuber bruising in the tetraploid potato."
+author: "Olivia Angelin-Bonnet, Susan Thomson, Matthieu Vignes, Patrick J. Biggs, Katrina Monaghan, Rebecca Bloomer, Kathryn Wright, Samantha Baldwin"
+date: "2023-05-05"
+categories: [tuber-bruising, multi-omics]
+---
+
+- DOI: <https://doi.org/10.1186/s12870-023-04255-2>
+- GitHub repository: <https://github.com/PlantandFoodResearch/Tuber_bruising>
+
+## Abstract
+
+### Background
+Tuber bruising in tetraploid potatoes (*Solanum tuberosum*) is a trait of economic importance, as it affects tubers’ fitness for sale. Understanding the genetic components affecting tuber bruising is a key step in developing potato lines with increased resistance to bruising. As the tetraploid setting renders genetic analyses more complex, there is still much to learn about this complex phenotype. Here, we used capture sequencing data on a panel of half-sibling populations from a breeding programme to perform a genome-wide association analysis (GWAS) for tuber bruising. In addition, we collected transcriptomic data to enrich the GWAS results. However, there is currently no satisfactory method to represent both GWAS and transcriptomics analysis results in a single visualisation and to compare them with existing knowledge about the biological system under study.
+
+### Results
+When investigating population structure, we found that the STRUCTURE algorithm yielded greater insights than discriminant analysis of principal components (DAPC). Importantly, we found that markers with the highest (though non-significant) association scores were consistent with previous findings on tuber bruising. In addition, new genomic regions were found to be associated with tuber bruising. The GWAS results were backed by the transcriptomics differential expression analysis. The differential expression notably highlighted for the first time the role of two genes involved in cellular strength and mechanical force sensing in tuber resistance to bruising. We proposed a new visualisation, the HIDECAN plot, to integrate the results from the genomics and transcriptomics analyses, along with previous knowledge about genomic regions and candidate genes associated with the trait.
+
+### Conclusion
+This study offers a unique genome-wide exploration of the genetic components of tuber bruising. The role of genetic components affecting cellular strength and resistance to physical force, as well as mechanosensing mechanisms, was highlighted for the first time in the context of tuber bruising. We showcase the usefulness of genomic data from breeding programmes in identifying genomic regions whose association with the trait of interest merit further investigation. We demonstrate how confidence in these discoveries and their biological relevance can be increased by integrating results from transcriptomics analyses. The newly proposed visualisation provides a clear framework to summarise of both genomics and transcriptomics analyses, and places them in the context of previous knowledge on the trait of interest.
+
+## Cite us
+
+> Angelin-Bonnet, O., Thomson, S., Vignes, M., Biggs, P. J., Monaghan, K., Bloomer, R., ... & Baldwin, S. (2023). Investigating the genetic components of tuber bruising in a breeding population of tetraploid potatoes. *BMC Plant Biology*, 23(1), 238. https://doi.org/10.1186/s12870-023-04255-2
+
+Or with bibtex:
+
+```
+@article{angelin2023investigating,
+	title        = {Investigating the genetic components of tuber bruising in a breeding population of tetraploid potatoes},
+	author       = {Angelin-Bonnet, Olivia and Thomson, Susan and Vignes, Matthieu and Biggs, Patrick J and Monaghan, Katrina and Bloomer, Rebecca and Wright, Kathryn and Baldwin, Samantha},
+	year         = 2023,
+	journal      = {BMC Plant Biology},
+	publisher    = {Springer},
+	volume       = 23,
+	number       = 1,
+	pages        = 238,
+	doi          = {10.1186/s12870-023-04255-2}
+}
+```

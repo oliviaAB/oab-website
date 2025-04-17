@@ -1,0 +1,23 @@
+---
+title: "Setting up a reproducible data analysis project in R - featuring GitHub, {renv}, {targets} and more"
+subtitle: "SSA & ECSSN Joint Webinar Series | online"
+description: "A walk-through of my setup for a typical analysis project in R, using best practices."
+author: "Olivia Angelin-Bonnet"
+date: "2024-08-20"
+categories: [project-management, targets, r-code, recording, slides]
+image: featured.png
+---
+
+## Abstract
+
+This talk is a follow up to [last year’s presentation](https://olivia-angelin-bonnet.netlify.app/talk/2023-nzsa-ssa/) on the relevance of software engineering best practices in statistics and data science. Here, I will go through how I setup a new data analysis project in R, following some of these best practices to ensure reproducibility and reusability. In particular, I will demonstrate how I use GitHub to version control the code, and how I organise a typical analysis directory. I will also showcase some very useful R packages, such as {renv} to document the computational environment and {targets} to turn the scripts into a reproducible analytical pipeline.
+
+## Recording and slides
+
+{{< video https://www.youtube.com/watch?v=DTpcGgdL-cc>}}
+
+[Slides](https://nzsa-ecssn-2024-seminar-slides.netlify.app/#/title-slide) and corresponding [blog post](https://olivia-angelin-bonnet.netlify.app/blog/2024-08-20-setting-up-r-project/) available.
+
+## Event information
+
+See the event information on the [SSA website](https://www.statsoc.org.au/event-5815368).

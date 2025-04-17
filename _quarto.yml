@@ -1,0 +1,33 @@
+project:
+  type: website
+  preview:
+    port: 1234
+    browser: true
+
+website:
+  title: "Olivia Angelin-Bonnet"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - publications.qmd
+      - talks.qmd
+      - projects.qmd
+      - blog.qmd
+    tools:
+      - icon: github
+        href: https://github.com/oliviaAB
+      - icon: envelope
+        href: mailto:olivia.angelinbonnet@gmail.com
+  page-footer:
+    border: true
+    left: "{{< iconify lucide:copyright >}} 2025 Olivia Angelin-Bonnet"
+    right: "Made with [Quarto](https://quarto.org/)"
+  cookie-consent:
+    type: express
+format:
+  html:
+    theme: [cosmo, styles.scss]
+    toc: true
+
+

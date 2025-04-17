@@ -1,0 +1,39 @@
+---
+title: "Visual integration of GWAS and differential expression results with the hidecan R package"
+subtitle: "Genes"
+description: "Presentation of the hidecan R package for generating visualisations combining GWAS and differential expression analyses results, as well as manually curated candidate genes."
+author: "Olivia Angelin-Bonnet, Matthieu Vignes, Patrick J. Biggs, Samantha Baldwin, Susan Thomson"
+date: "2024-09-25"
+categories: [r-package, multi-omics]
+---
+
+- DOI: <https://doi.org/10.3390/genes15101244>
+- Preprint: <https://www.biorxiv.org/content/10.1101/2023.03.30.535015v1>
+- GitHub repository: <https://github.com/PlantandFoodResearch/hidecan>
+
+## Abstract
+
+**Background/Objectives:** We present hidecan, an R package for generating visualisations that summarise the results of one or more genome-wide association studies (GWAS) and differential expression analyses, as well as manually curated candidate genes, e.g., extracted from the literature. This tool is applicable to all ploidy levels; we notably provide functionalities to facilitate the visualisation of GWAS results obtained for autotetraploid organisms with the GWASpoly package. 
+
+**Results:** We illustrate the capabilities of hidecan with examples from two autotetraploid potato datasets. 
+
+**Conclusions:** The hidecan package is implemented in R and is publicly available on the CRAN repository and on GitHub. A description of the package, as well as a detailed tutorial, is made available alongside the package. It is also part of the VIEWpoly tool for the visualisation and exploration of results from polyploids computational tools.
+
+## Cite us
+
+> Angelin-Bonnet, O., Vignes, M., Biggs, P.J., Baldwin, S. and Thomson, S., 2024. Visual Integration of Genome-Wide Association Studies and Differential Expression Results with the Hidecan R Package. *Genes*, 15(10), p.1244.
+
+Or with bibtex:
+
+```
+@article{angelin2024visual,
+  title={Visual Integration of Genome-Wide Association Studies and Differential Expression Results with the Hidecan R Package},
+  author={Angelin-Bonnet, Olivia and Vignes, Matthieu and Biggs, Patrick J and Baldwin, Samantha and Thomson, Susan},
+  journal={Genes},
+  volume={15},
+  number={10},
+  pages={1244},
+  year={2024},
+  publisher={MDPI}
+}
+```

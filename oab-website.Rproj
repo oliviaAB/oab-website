@@ -1,4 +1,5 @@
 Version: 1.0
+ProjectId: c17c0f7c-c6d9-45ea-9aa8-d5e8cc36304e
 
 RestoreWorkspace: Default
 SaveWorkspace: Default
@@ -14,5 +15,3 @@ LaTeX: pdfLaTeX
 
 AutoAppendNewline: Yes
 StripTrailingWhitespace: Yes
-
-BuildType: Website

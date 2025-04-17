@@ -1,0 +1,16 @@
+---
+title: "Publications"
+listing:
+  contents: publication
+  sort: "date desc"
+  type: table
+  categories: true
+  sort-ui: false
+  filter-ui: false
+  image-align: left
+  fields: [date, title, subtitle, author, categories]
+  field-display-names: 
+    subtitle: "Journal"
+page-layout: full
+title-block-banner: false
+---

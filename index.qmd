@@ -1,0 +1,20 @@
+---
+title: "Olivia Angelin-Bonnet, PhD"
+subtitle: "Statistical scientist, R user, professional plot-maker"
+image: images/Olivia_Angelin-Bonnet.jpg
+about:
+  template: jolla
+  links:
+    - icon: github
+      text: GitHub
+      href: https://github.com/oliviaAB
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/olivia-angelin-bonnet-294502109/
+    - text: "{{< iconify simple-icons:orcid >}} ORCID"
+      href: https://orcid.org/0000-0002-7708-2919
+    - text: "{{< ai google-scholar >}} Google Scholar"
+      href: https://scholar.google.com/citations?user=dhURnRkAAAAJ&hl=en
+---
+
+I am a Statistical Scientist at The New Zealand Institute for Plant and Food Research Limited (Palmerston North, New Zealand), working on multi-omics integration. I am passionate about reproducible research and developing R packages for omics data analysis and visualisation.

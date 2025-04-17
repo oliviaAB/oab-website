@@ -1,0 +1,32 @@
+---
+title: "University teaching"
+description: "A summary of the courses I've taught at Massey University in 2021/2022."
+author: "Olivia Angelin-Bonnet"
+date: "2020-08-01"
+categories: [teaching, statistics]
+image: "featured.jpg"
+---
+
+Here is a list of the courses I've contributed to teaching at Massey University from semester 1 of 2021 to semester 1 of 2022.
+
+### 100-level
+
+-   [161.111](https://www.massey.ac.nz/study/courses/applied-statistics-161111/) - Applied Statistics
+
+### 200-level
+
+-   161.200 - Statistical Modelling
+-   [161.221](https://www.massey.ac.nz/study/courses/applied-linear-models-161221/) - Applied Linear Models
+-   [161.251](https://www.massey.ac.nz/study/courses/regression-modelling-161251/) - Regression Modelling
+
+### 300-level
+
+-   [161.304](https://www.massey.ac.nz/study/courses/statistical-modelling-161304/) - Statistical Modelling
+
+### 700-level (post-graduate course)
+
+-   [161.729](https://www.massey.ac.nz/study/courses/topics-in-applied-statistics-161729/) - Topics in Applied Statistics
+
+------------------------------------------------------------------------
+
+<font size="2">Project thumbnail photo by [Nathan Dumlao](https://unsplash.com/@nate_dumlao?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/university?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)</font>
