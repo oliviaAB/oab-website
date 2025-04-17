@@ -14,7 +14,17 @@ website:
       - talks.qmd
       - projects.qmd
       - blog.qmd
-
+    tools:
+      - icon: github
+        href: https://github.com/oliviaAB
+      - icon: envelope
+        href: mailto:olivia.angelinbonnet@gmail.com
+  page-footer:
+    border: true
+    left: "{{< iconify lucide:copyright >}} 2025 Olivia Angelin-Bonnet"
+    right: "Made with [Quarto](https://quarto.org/)"
+  cookie-consent:
+    type: express
 format:
   html:
     theme: [cosmo, styles.scss]

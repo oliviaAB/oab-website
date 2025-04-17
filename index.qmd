@@ -11,11 +11,9 @@ about:
     - icon: linkedin
       text: LinkedIn
       href: https://www.linkedin.com/in/olivia-angelin-bonnet-294502109/
-    - icon: "{{< ai orcid >}}"
-      text: ORCID
+    - text: "{{< iconify simple-icons:orcid >}} ORCID"
       href: https://orcid.org/0000-0002-7708-2919
-    - icon: "{{< ai google-scholar >}}"
-      text: Google scholar
+    - text: "{{< ai google-scholar >}} Google Scholar"
       href: https://scholar.google.com/citations?user=dhURnRkAAAAJ&hl=en
 ---
 

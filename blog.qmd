@@ -8,6 +8,7 @@ listing:
   sort-ui: false
   filter-ui: false
   image-align: left
+  fields: [title, subtitle, description, date, image, categories]
 page-layout: full
 title-block-banner: false
 ---
