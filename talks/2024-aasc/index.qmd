@@ -4,7 +4,7 @@ subtitle: "Australasian Applied Statistics Conference 2024 | Rottnest Island, Au
 description: "Presentation of the moiraine R package for comparing multi-omics integration tools."
 author: "Olivia Angelin-Bonnet"
 date: "2024-09-03"
-categories: [conference, moiraine, slides]
+categories: [conference, moiraine]
 image: aasc_quokka.png
 ---
 

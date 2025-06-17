@@ -4,7 +4,7 @@ subtitle: "New Zealand Research Software Engineering Conference 2023 | online"
 description: "Talk about the software engineering skills that statisticians should learn about."
 author: "Olivia Angelin-Bonnet"
 date: "2023-09-18"
-categories: [conference, project-management, slides]
+categories: [conference, project-management]
 image: featured.png
 ---
 

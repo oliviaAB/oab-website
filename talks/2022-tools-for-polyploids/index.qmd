@@ -4,7 +4,7 @@ subtitle: "Tools for Polyploids Workshop 2022 | online"
 description: "Presentation of the research I've done during my PhD."
 author: "Olivia Angelin-Bonnet, Susan Thomson, Patrick J. Biggs, Matthieu Vignes and Samantha Baldwin"
 date: "2022-01-14"
-categories: [conference, tuber-bruising, recording, slides]
+categories: [conference, tuber-bruising]
 image: featured.jpg
 ---
 

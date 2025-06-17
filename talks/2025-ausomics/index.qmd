@@ -1,0 +1,16 @@
+---
+title: "Reproducible application and comparison of multi-omics integration tools with the moiraine package"
+subtitle: "AUS-oMicS 2025 | Cairns, Australia"
+description: "Presentation of the moiraine R package for facilitating the application and comparison of multi-omics integration tools."
+author: "Olivia Angelin-Bonnet"
+date: "2025-05-21"
+categories: [moiraine]
+image: ausomics.png
+---
+
+## Abstract
+
+The integrated analysis of multi-omics datasets is a challenging problem, owing to their complexity and high dimensionality. Numerous integration tools have been developed, but they are heterogeneous in terms of both their underlying statistical methodology and implementation, in particular input data requirements and visual representation of the results generated. To date, comparing these different tools can only be done through a manual and intensive process.
+
+We present the moiraine R package, which provides a framework to consistently apply different integration tools to a same multi-omics dataset, and to compare their results. moiraine enables the construction of analysis pipelines handling data import, visualisation, pre-processing (including data transformation and features pre-filtering), integration, as well as interpretation, evaluation and comparison of the results. In particular, the package facilitates the construction of insightful, context-enriched visualisations, which can be used regardless of the integration method used. The generated pipelines are fully customisable and ensure the reproducibility of the analysis.
+

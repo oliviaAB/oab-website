@@ -4,7 +4,7 @@ subtitle: "SSA & ECSSN Joint Webinar Series | online"
 description: "A walk-through of my setup for a typical analysis project in R, using best practices."
 author: "Olivia Angelin-Bonnet"
 date: "2024-08-20"
-categories: [project-management, targets, r-code, recording, slides]
+categories: [project-management, targets, r-code]
 image: featured.png
 ---
 

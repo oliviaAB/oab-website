@@ -1,0 +1,19 @@
+---
+title: "Reproducible multi-omics integration with the moiraine R package"
+subtitle: "R Exchange 2025 | Wellington, New Zealand"
+description: "How I developed the R package moraine for automating the application and comparison of multi-omics integration tools."
+author: "Olivia Angelin-Bonnet"
+date: "2025-05-15"
+categories: [moiraine]
+image: rexchange_2025_flyer.png
+---
+
+## Abstract
+
+The integrated analysis of multi-omics datasets is a challenging problem, owing to their complexity and high dimensionality. Numerous integration tools have been developed, but they are heterogeneous in terms of their underlying statistical methodology, input data requirements, implementation, and visual representation of the results generated.
+
+To address this, I present the moiraine R package, which provides a framework to consistently visualise and integrate multi-omics datasets and compare the results of different integration tools. In particular, moiraine uses available metadata to construct context-rich visualisations, which facilitate the interpretation of the results by domain experts. The package has been designed to enable reproducible research, through the construction of targets pipelines. A comprehensive documentation is available online in the form of a Quarto book.
+
+## Slides
+
+[Slides](https://epi.group/assets/Images/R-Exchange-25/Presentations/Moiraine-R-package_O-Angelin-Bonnet.pdf) available.

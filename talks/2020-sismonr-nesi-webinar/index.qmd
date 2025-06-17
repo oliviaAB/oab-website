@@ -4,7 +4,7 @@ subtitle: "NeSI webinar | online"
 description: "How I used the sismonr R package to simulate gene expression via the NeSI HPC."
 author: "Olivia Angelin-Bonnet, Patrick J. Biggs and Matthieu Vignes"
 date: "2020-10-08"
-categories: [sismonr, NeSI, recording]
+categories: [sismonr, NeSI]
 image: nesi_webinar.jpg
 ---
 

@@ -4,7 +4,7 @@ subtitle: "SSA & NZSA Joint Webinar Series | online"
 description: "Talk about the software engineering skills that statisticians should learn about."
 author: "Olivia Angelin-Bonnet"
 date: "2023-06-22"
-categories: [project-management, r-code, recording, slides]
+categories: [project-management, r-code]
 image: featured.png
 ---
 
